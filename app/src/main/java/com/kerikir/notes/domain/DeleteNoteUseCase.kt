@@ -2,7 +2,7 @@ package com.kerikir.notes.domain
 
 class DeleteNoteUseCase {
 
-    operator fun invoke(note: Note) {
+    operator fun invoke(noteId: Int) {
         TODO()
     }
 }
