@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SearchNotesUseCase {
 
-    operator fun invoke(search: String): Flow<List<Note>> {
+    operator fun invoke(query: String): Flow<List<Note>> {
         TODO()
     }
 }
