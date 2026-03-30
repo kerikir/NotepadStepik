@@ -2,7 +2,7 @@ package com.kerikir.notes.domain
 
 class AddNoteUseCase {
 
-    fun addNote(note: Note) {
+    operator fun invoke(note: Note) {
         TODO()
     }
 }

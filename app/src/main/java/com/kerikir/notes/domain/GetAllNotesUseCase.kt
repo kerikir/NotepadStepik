@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GetAllNotesUseCase {
 
-    fun getAllNotes(): Flow<List<Note>> {
+    operator fun invoke(): Flow<List<Note>> {
         TODO()
     }
 }
