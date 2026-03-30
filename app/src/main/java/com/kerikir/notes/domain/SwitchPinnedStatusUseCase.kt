@@ -2,7 +2,7 @@ package com.kerikir.notes.domain
 
 class SwitchPinnedStatusUseCase {
 
-    operator fun invoke(note: Note, flag: Boolean) {
+    operator fun invoke(noteId: Int) {
         TODO()
     }
 }
