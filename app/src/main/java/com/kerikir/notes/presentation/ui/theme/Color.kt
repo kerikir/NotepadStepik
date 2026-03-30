@@ -1,4 +1,4 @@
-package com.kerikir.notes.ui.theme
+package com.kerikir.notes.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
