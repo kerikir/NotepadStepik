@@ -11,7 +11,9 @@ class TestNotesRepositoryImpl : NotesRepository {
     private val notesListFlow = MutableStateFlow<List<Note>>(listOf())
 
     override fun addNote(note: Note) {
-        TODO("Not yet implemented")
+        val newNotes = notesListFlow.value.toMutableList()
+        newNotes.add(note)
+        notesListFlow.value = newNotes
     }
 
     override fun deleteNote(noteId: Int) {
