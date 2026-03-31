@@ -33,17 +33,17 @@ class NotesViewModel : ViewModel() {
 
 
 
-sealed interface NotesCommands {
+sealed interface NotesCommand {
 
-    data class InputSearchQuery(val query: String) : NotesCommands
+    data class InputSearchQuery(val query: String) : NotesCommand
 
-    data class SwitchPinnedStatus(val noteId: Int) : NotesCommands
+    data class SwitchPinnedStatus(val noteId: Int) : NotesCommand
 
     // Temp
 
-    data class DeleteNote(val noteId: Int) : NotesCommands
+    data class DeleteNote(val noteId: Int) : NotesCommand
 
-    data class EditNote(val note: Note) : NotesCommands
+    data class EditNote(val note: Note) : NotesCommand
 }
 
 
