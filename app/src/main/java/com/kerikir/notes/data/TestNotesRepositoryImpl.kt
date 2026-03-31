@@ -18,7 +18,13 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun deleteNote(noteId: Int) {
-        TODO("Not yet implemented")
+        notesListFlow.update { oldList ->
+            oldList.toMutableList().apply {
+                removeIf {
+                    it.id == noteId
+                }
+            }
+        }
     }
 
     override fun editNote(note: Note) {
