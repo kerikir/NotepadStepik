@@ -52,6 +52,14 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun switchPinnedStatus(noteId: Int) {
-        TODO("Not yet implemented")
+        notesListFlow.update { oldList ->
+            oldList.map {
+                if (it.id == noteId) {
+                    it.copy(isPinned = !it.isPinned)
+                } else {
+                    it
+                }
+            }
+        }
     }
 }
