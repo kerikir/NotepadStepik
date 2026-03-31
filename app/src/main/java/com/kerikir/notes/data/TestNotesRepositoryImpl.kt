@@ -3,9 +3,12 @@ package com.kerikir.notes.data
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class TestNotesRepositoryImpl : NotesRepository {
-    
+
+    private val notesListFlow = MutableStateFlow<List<Note>>(listOf())
+
     override fun addNote(note: Note) {
         TODO("Not yet implemented")
     }
