@@ -5,6 +5,7 @@ import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 class TestNotesRepositoryImpl : NotesRepository {
@@ -48,7 +49,11 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun searchNotes(query: String): Flow<List<Note>> {
-        TODO("Not yet implemented")
+        return notesListFlow.map { currentList ->
+            currentList.filter {
+                it.title.contains(query) || it.content.contains(query)
+            }
+        }
     }
 
     override fun switchPinnedStatus(noteId: Int) {
