@@ -5,15 +5,18 @@ import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class TestNotesRepositoryImpl : NotesRepository {
 
     private val notesListFlow = MutableStateFlow<List<Note>>(listOf())
 
     override fun addNote(note: Note) {
-        val newNotes = notesListFlow.value.toMutableList()
-        newNotes.add(note)
-        notesListFlow.value = newNotes
+        notesListFlow.update {
+            it.toMutableList().apply {
+                add(note)
+            }
+        }
     }
 
     override fun deleteNote(noteId: Int) {
