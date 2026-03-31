@@ -7,6 +7,7 @@ import com.kerikir.notes.domain.DeleteNoteUseCase
 import com.kerikir.notes.domain.EditNoteUseCase
 import com.kerikir.notes.domain.GetAllNotesUseCase
 import com.kerikir.notes.domain.GetNoteUseCase
+import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.SearchNotesUseCase
 import com.kerikir.notes.domain.SwitchPinnedStatusUseCase
 
@@ -24,3 +25,10 @@ class NotesViewModel : ViewModel() {
     private val deleteNoteUseCase = DeleteNoteUseCase(repository)
     private val getNoteUseCase = GetNoteUseCase(repository)
 }
+
+
+data class NotesScreenState(
+    val query: String = "",
+    val pinnedNotes: List<Note> = listOf(),
+    val otherNotes: List<Note> = listOf()
+)
