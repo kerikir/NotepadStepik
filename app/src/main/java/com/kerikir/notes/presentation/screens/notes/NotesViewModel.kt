@@ -33,6 +33,15 @@ class NotesViewModel : ViewModel() {
 
 
 
+sealed interface NotesCommands {
+
+    data class InputSearchQuery(val query: String) : NotesCommands
+
+    data class SwitchPinnedStatus(val noteId: Int) : NotesCommands
+}
+
+
+
 data class NotesScreenState(
     val query: String = "",
     val pinnedNotes: List<Note> = listOf(),
