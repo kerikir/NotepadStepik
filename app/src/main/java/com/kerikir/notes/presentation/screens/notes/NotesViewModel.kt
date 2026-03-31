@@ -10,6 +10,8 @@ import com.kerikir.notes.domain.GetNoteUseCase
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.SearchNotesUseCase
 import com.kerikir.notes.domain.SwitchPinnedStatusUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 
 class NotesViewModel : ViewModel() {
@@ -24,7 +26,11 @@ class NotesViewModel : ViewModel() {
     private val editNoteUseCase = EditNoteUseCase(repository)
     private val deleteNoteUseCase = DeleteNoteUseCase(repository)
     private val getNoteUseCase = GetNoteUseCase(repository)
+
+    private val _state = MutableStateFlow(NotesScreenState())
+    val state = _state.asStateFlow()
 }
+
 
 
 data class NotesScreenState(
