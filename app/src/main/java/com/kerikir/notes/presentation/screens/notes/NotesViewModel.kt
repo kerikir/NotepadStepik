@@ -10,6 +10,8 @@ import com.kerikir.notes.domain.GetNoteUseCase
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.SearchNotesUseCase
 import com.kerikir.notes.domain.SwitchPinnedStatusUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -27,8 +29,17 @@ class NotesViewModel : ViewModel() {
     private val deleteNoteUseCase = DeleteNoteUseCase(repository)
     private val getNoteUseCase = GetNoteUseCase(repository)
 
+    private val query = MutableStateFlow("")
+
     private val _state = MutableStateFlow(NotesScreenState())
     val state = _state.asStateFlow()
+
+    private val scope = CoroutineScope(Dispatchers.IO)
+
+
+    init {
+        
+    }
 
 
     fun processCommand(command: NotesCommand) {
