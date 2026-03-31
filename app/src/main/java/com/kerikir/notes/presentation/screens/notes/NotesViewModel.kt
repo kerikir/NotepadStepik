@@ -38,6 +38,12 @@ sealed interface NotesCommands {
     data class InputSearchQuery(val query: String) : NotesCommands
 
     data class SwitchPinnedStatus(val noteId: Int) : NotesCommands
+
+    // Temp
+
+    data class DeleteNote(val noteId: Int) : NotesCommands
+
+    data class EditNote(val note: Note) : NotesCommands
 }
 
 
