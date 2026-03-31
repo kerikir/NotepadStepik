@@ -13,9 +13,7 @@ class TestNotesRepositoryImpl : NotesRepository {
 
     override fun addNote(note: Note) {
         notesListFlow.update {
-            it.toMutableList().apply {
-                add(note)
-            }
+            it + note
         }
     }
 
