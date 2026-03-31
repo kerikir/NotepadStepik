@@ -44,7 +44,7 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun getNote(noteId: Int): Note {
-        TODO("Not yet implemented")
+        return notesListFlow.value.first { it.id == noteId }
     }
 
     override fun searchNotes(query: String): Flow<List<Note>> {
