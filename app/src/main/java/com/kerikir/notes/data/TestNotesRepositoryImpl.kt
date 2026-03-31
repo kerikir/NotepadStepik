@@ -28,7 +28,15 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun editNote(note: Note) {
-        TODO("Not yet implemented")
+        notesListFlow.update { oldList ->
+            oldList.map {
+                if (it.id == note.id) {
+                    note
+                } else {
+                    it
+                }
+            }
+        }
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
