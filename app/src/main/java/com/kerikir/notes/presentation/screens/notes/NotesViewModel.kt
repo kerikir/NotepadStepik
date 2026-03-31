@@ -29,6 +29,26 @@ class NotesViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(NotesScreenState())
     val state = _state.asStateFlow()
+
+
+    fun processCommand(command: NotesCommand) {
+        when (command) {
+            is NotesCommand.DeleteNote -> {
+                deleteNoteUseCase(command.noteId)
+            }
+
+            is NotesCommand.EditNote -> {
+                val title = command.note.title
+                editNoteUseCase(command.note.copy(title = "$title edited"))
+            }
+
+            is NotesCommand.InputSearchQuery -> {}
+
+            is NotesCommand.SwitchPinnedStatus -> {
+                switchPinnedStatusUseCase(command.noteId)
+            }
+        }
+    }
 }
 
 
