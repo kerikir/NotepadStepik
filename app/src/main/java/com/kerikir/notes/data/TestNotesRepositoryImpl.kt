@@ -4,6 +4,7 @@ import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class TestNotesRepositoryImpl : NotesRepository {
 
@@ -22,7 +23,7 @@ class TestNotesRepositoryImpl : NotesRepository {
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
-        TODO("Not yet implemented")
+        return notesListFlow.asStateFlow()
     }
 
     override fun getNote(noteId: Int): Note {
