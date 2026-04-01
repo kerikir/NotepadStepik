@@ -6,6 +6,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -27,19 +28,16 @@ fun NotesScreen(
 
     val state by viewModel.state.collectAsState()
 
-    val scrollState = remember {
-        ScrollState(0)
-    }
-
     Column(
         modifier = Modifier
             .padding(top = 48.dp)
-            .verticalScroll(scrollState),
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
         Row(
             modifier = Modifier
+                .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
