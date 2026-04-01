@@ -43,23 +43,21 @@ fun NotesScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             state.pinnedNotes.forEach {  note ->
-                Text(
-                    modifier = Modifier.clickable {
+                NotesCard(
+                    note = note,
+                    onNoteClick = { note ->
                         viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                    },
-                    text = "${note.title} - ${note.content}",
-                    fontSize = 24.sp
+                    }
                 )
             }
         }
 
         state.otherNotes.forEach { note ->
-            Text(
-                modifier = Modifier.clickable {
+            NotesCard(
+                note = note,
+                onNoteClick = { note ->
                     viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                },
-                text = "${note.title} - ${note.content}",
-                fontSize = 24.sp
+                }
             )
         }
     }
