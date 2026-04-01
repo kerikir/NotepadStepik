@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,10 +25,14 @@ fun NotesScreen(
 
     val currentState = state.value
 
+    val scrollState = remember {
+        ScrollState(0)
+    }
+
     Column(
         modifier = Modifier
             .padding(top = 48.dp)
-            .verticalScroll(ScrollState(0)),
+            .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         currentState.otherNotes.forEach { note ->
