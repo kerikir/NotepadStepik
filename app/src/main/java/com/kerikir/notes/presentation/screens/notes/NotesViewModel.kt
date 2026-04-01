@@ -49,16 +49,16 @@ class NotesViewModel : ViewModel() {
             .onEach { input ->
                 _state.update { it.copy(query = input) }
             }
-            .flatMapLatest {
-                if (it.isBlank()) {
+            .flatMapLatest { input ->
+                if (input.isBlank()) {
                     getAllNotesUseCase()
                 } else {
-                    searchNotesUseCase(it)
+                    searchNotesUseCase(input)
                 }
             }
-            .onEach {
-                val pinnedNotes = it.filter { it.isPinned }
-                val otherNotes = it.filter { !it.isPinned }
+            .onEach { notes ->
+                val pinnedNotes = notes.filter { it.isPinned }
+                val otherNotes = notes.filter { !it.isPinned }
                 _state.update { it.copy(pinnedNotes = pinnedNotes, otherNotes = otherNotes) }
             }
             .launchIn(scope)
