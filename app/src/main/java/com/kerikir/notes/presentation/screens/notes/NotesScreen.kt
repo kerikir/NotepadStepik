@@ -2,8 +2,10 @@ package com.kerikir.notes.presentation.screens.notes
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -35,10 +37,27 @@ fun NotesScreen(
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+
+        Row(
+            modifier = Modifier
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            state.pinnedNotes.forEach {  note ->
+                Text(
+                    modifier = Modifier.clickable {
+                        viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
+                    },
+                    text = "${note.title} - ${note.content}",
+                    fontSize = 24.sp
+                )
+            }
+        }
+
         state.otherNotes.forEach { note ->
             Text(
                 modifier = Modifier.clickable {
-                    viewModel.processCommand(NotesCommand.EditNote(note))
+                    viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
                 },
                 text = "${note.title} - ${note.content}",
                 fontSize = 24.sp
