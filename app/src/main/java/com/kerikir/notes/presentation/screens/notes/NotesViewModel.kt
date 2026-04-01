@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.kerikir.notes.presentation.screens.notes
 
 import androidx.lifecycle.ViewModel
@@ -12,6 +14,7 @@ import com.kerikir.notes.domain.SearchNotesUseCase
 import com.kerikir.notes.domain.SwitchPinnedStatusUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
