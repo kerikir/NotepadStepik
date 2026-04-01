@@ -46,6 +46,9 @@ class NotesViewModel : ViewModel() {
 
     init {
         query
+            .onEach { input ->
+                _state.update { it.copy(query = input) }
+            }
             .flatMapLatest {
                 if (it.isBlank()) {
                     getAllNotesUseCase()
@@ -85,7 +88,6 @@ class NotesViewModel : ViewModel() {
 }
 
 
-
 sealed interface NotesCommand {
 
     data class InputSearchQuery(val query: String) : NotesCommand
@@ -98,7 +100,6 @@ sealed interface NotesCommand {
 
     data class EditNote(val note: Note) : NotesCommand
 }
-
 
 
 data class NotesScreenState(
