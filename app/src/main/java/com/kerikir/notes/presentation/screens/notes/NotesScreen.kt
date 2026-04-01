@@ -1,6 +1,7 @@
 package com.kerikir.notes.presentation.screens.notes
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,9 @@ fun NotesScreen(
     ) {
         currentState.otherNotes.forEach { note ->
             Text(
+                modifier = Modifier.clickable {
+                    viewModel.processCommand(NotesCommand.EditNote(note))
+                },
                 text = "${note.title} - ${note.content}",
                 fontSize = 24.sp
             )
