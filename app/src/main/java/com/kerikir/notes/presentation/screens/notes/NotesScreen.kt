@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kerikir.notes.domain.Note
 
 @Composable
 fun NotesScreen(
@@ -62,4 +63,22 @@ fun NotesScreen(
             )
         }
     }
+}
+
+
+
+@Composable
+fun NotesCard(
+    modifier: Modifier = Modifier,
+    note: Note,
+    onNoteClick: (Note) -> Unit
+) {
+
+    Text(
+        modifier = Modifier.clickable {
+            onNoteClick(note)
+        },
+        text = "${note.title} - ${note.content}",
+        fontSize = 26.sp
+    )
 }
