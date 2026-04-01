@@ -82,8 +82,9 @@ class NotesViewModel : ViewModel() {
             }
 
             is NotesCommand.EditNote -> {
-                val title = command.note.title
-                editNoteUseCase(command.note.copy(title = "$title edited"))
+                val note = getNoteUseCase(command.note.id)
+                val title = note.title
+                editNoteUseCase(note.copy(title = "$title edited"))
             }
 
             is NotesCommand.InputSearchQuery -> {
