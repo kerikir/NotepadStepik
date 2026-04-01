@@ -3,13 +3,12 @@ package com.kerikir.notes.presentation.screens.notes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,8 +29,7 @@ fun NotesScreen(
 
     LazyColumn(
         modifier = Modifier
-            .padding(top = 48.dp)
-            .verticalScroll(rememberScrollState()),
+            .padding(top = 48.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
@@ -53,15 +51,13 @@ fun NotesScreen(
             }
         }
 
-        state.otherNotes.forEach { note ->
-            item {
-                NotesCard(
-                    note = note,
-                    onNoteClick = { note ->
-                        viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                    }
-                )
-            }
+        items(state.otherNotes) { note ->
+            NotesCard(
+                note = note,
+                onNoteClick = { note ->
+                    viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
+                }
+            )
         }
     }
 }
