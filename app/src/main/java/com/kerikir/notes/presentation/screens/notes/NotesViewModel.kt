@@ -73,7 +73,9 @@ class NotesViewModel : ViewModel() {
                 editNoteUseCase(command.note.copy(title = "$title edited"))
             }
 
-            is NotesCommand.InputSearchQuery -> {}
+            is NotesCommand.InputSearchQuery -> {
+                query.update { command.query.trim() }
+            }
 
             is NotesCommand.SwitchPinnedStatus -> {
                 switchPinnedStatusUseCase(command.noteId)
