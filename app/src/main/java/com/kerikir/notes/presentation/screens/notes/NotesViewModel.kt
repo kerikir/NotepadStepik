@@ -45,6 +45,8 @@ class NotesViewModel : ViewModel() {
 
 
     init {
+        addSomeNotes()
+
         query
             .onEach { input ->
                 _state.update { it.copy(query = input) }
@@ -62,6 +64,14 @@ class NotesViewModel : ViewModel() {
                 _state.update { it.copy(pinnedNotes = pinnedNotes, otherNotes = otherNotes) }
             }
             .launchIn(scope)
+    }
+
+
+    // TODO: don't forget to remove it
+    private fun addSomeNotes() {
+        repeat(50) {
+            addNoteUseCase(title = "Title №$it", content = "Content №$it")
+        }
     }
 
 

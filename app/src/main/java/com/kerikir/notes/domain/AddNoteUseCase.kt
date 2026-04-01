@@ -8,6 +8,6 @@ class AddNoteUseCase(
         title: String,
         content: String
     ) {
-        repository.addNote(note = note)
+        repository.addNote(title, content)
     }
 }
