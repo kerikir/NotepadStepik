@@ -48,13 +48,15 @@ fun NotesScreen(
             }
         }
 
-        items(state.otherNotes) { note ->
-            NotesCard(
-                note = note,
-                onNoteClick = { note ->
-                    viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                }
-            )
+        state.otherNotes.forEach { note ->
+            item(key = note.id) {
+                NotesCard(
+                    note = note,
+                    onNoteClick = { note ->
+                        viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
+                    }
+                )
+            }
         }
     }
 }
