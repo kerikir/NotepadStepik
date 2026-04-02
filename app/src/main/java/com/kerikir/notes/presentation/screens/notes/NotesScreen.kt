@@ -37,7 +37,10 @@ fun NotesScreen(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.pinnedNotes) { note ->
+                items(
+                    items = state.pinnedNotes,
+                    key = { it.id }
+                ) { note ->
                     NotesCard(
                         note = note,
                         onNoteClick = { note ->
