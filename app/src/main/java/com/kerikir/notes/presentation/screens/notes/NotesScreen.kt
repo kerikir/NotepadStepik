@@ -26,7 +26,7 @@ fun NotesScreen(
     val state by viewModel.state.collectAsState()
 
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 48.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -69,7 +69,7 @@ fun NotesCard(
 ) {
 
     Text(
-        modifier = Modifier.clickable {
+        modifier = modifier.clickable {
             onNoteClick(note)
         },
         text = "${note.title} - ${note.content}",
