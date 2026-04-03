@@ -119,6 +119,22 @@ private fun SearchBar(
 
 
 @Composable
+private fun Subtitle(
+    modifier: Modifier = Modifier,
+    text: String
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp
+    )
+}
+
+
+
+@Composable
 fun NotesCard(
     modifier: Modifier = Modifier,
     note: Note,
