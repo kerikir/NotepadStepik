@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kerikir.notes.domain.Note
+import com.kerikir.notes.presentation.ui.theme.Green
 import com.kerikir.notes.presentation.ui.theme.Yellow200
 
 @Composable
@@ -84,20 +85,29 @@ fun NotesScreen(
                 }
             }
         }
-
+        item {
+            Subtitle(text = "Others")
+        }
         state.otherNotes.forEach { note ->
             item(key = note.id) {
                 NoteCard(
+                    modifier = Modifier.fillMaxWidth(),
                     note = note,
-                    onNoteClick = { note ->
-                        viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                    }
+                    onNoteClick = {
+                        viewModel.processCommand(NotesCommand.EditNote(it))
+                    },
+                    onDoubleClick = {
+                        viewModel.processCommand(NotesCommand.DeleteNote(it.id))
+                    },
+                    onLongClick = {
+                        viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
+                    },
+                    backgroundColor = Green
                 )
             }
         }
     }
 }
-
 
 
 @Composable
@@ -113,7 +123,6 @@ private fun Title(
         color = MaterialTheme.colorScheme.onBackground
     )
 }
-
 
 
 @Composable
@@ -144,7 +153,6 @@ private fun SearchBar(
 }
 
 
-
 @Composable
 private fun Subtitle(
     modifier: Modifier = Modifier,
@@ -158,7 +166,6 @@ private fun Subtitle(
         fontSize = 14.sp
     )
 }
-
 
 
 @Composable
