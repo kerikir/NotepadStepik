@@ -48,7 +48,7 @@ fun NotesScreen(
                     items = state.pinnedNotes,
                     key = { it.id }
                 ) { note ->
-                    NotesCard(
+                    NoteCard(
                         note = note,
                         onNoteClick = { note ->
                             viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
@@ -60,7 +60,7 @@ fun NotesScreen(
 
         state.otherNotes.forEach { note ->
             item(key = note.id) {
-                NotesCard(
+                NoteCard(
                     note = note,
                     onNoteClick = { note ->
                         viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
@@ -135,10 +135,12 @@ private fun Subtitle(
 
 
 @Composable
-fun NotesCard(
+fun NoteCard(
     modifier: Modifier = Modifier,
     note: Note,
-    onNoteClick: (Note) -> Unit
+    onNoteClick: (Note) -> Unit,
+    onLongClick: (Note) -> Unit,
+    onDoubleClick: (Note) -> Unit
 ) {
 
     Text(
