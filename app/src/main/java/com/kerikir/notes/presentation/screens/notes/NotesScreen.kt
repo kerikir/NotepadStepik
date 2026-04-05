@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -34,6 +35,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.presentation.ui.theme.Green
+import com.kerikir.notes.presentation.ui.theme.OtherNotesColors
+import com.kerikir.notes.presentation.ui.theme.PinnedNotesColors
 import com.kerikir.notes.presentation.ui.theme.Yellow200
 
 @Composable
@@ -86,10 +89,10 @@ fun NotesScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(horizontal = 24.dp)
             ) {
-                items(
+                itemsIndexed(
                     items = state.pinnedNotes,
-                    key = { it.id }
-                ) { note ->
+                    key = { _, note -> note.id }
+                ) { index, note ->
                     NoteCard(
                         note = note,
                         onNoteClick = {
@@ -101,7 +104,7 @@ fun NotesScreen(
                         onLongClick = {
                             viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
                         },
-                        backgroundColor = Yellow200
+                        backgroundColor = PinnedNotesColors[index % PinnedNotesColors.size]
                     )
                 }
             }
@@ -118,7 +121,7 @@ fun NotesScreen(
         item {
             Spacer(modifier = Modifier.height(16.dp))
         }
-        state.otherNotes.forEach { note ->
+        state.otherNotes.forEachIndexed { index, note ->
             item(key = note.id) {
                 NoteCard(
                     modifier = Modifier.fillMaxWidth()
@@ -133,7 +136,7 @@ fun NotesScreen(
                     onLongClick = {
                         viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
                     },
-                    backgroundColor = Green
+                    backgroundColor = OtherNotesColors[index % OtherNotesColors.size]
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
