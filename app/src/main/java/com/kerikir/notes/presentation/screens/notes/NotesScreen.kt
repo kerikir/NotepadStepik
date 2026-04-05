@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -48,10 +49,14 @@ fun NotesScreen(
     ) {
 
         item {
-            Title(text = "All Notes")
+            Title(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                text = "All Notes"
+            )
         }
         item {
             SearchBar(
+                modifier = Modifier.padding(horizontal = 24.dp),
                 query = state.query,
                 onQueryChanged = {
                     viewModel.processCommand(NotesCommand.InputSearchQuery(it))
@@ -59,13 +64,17 @@ fun NotesScreen(
             )
         }
         item {
-            Subtitle(text = "Pinned")
+            Subtitle(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                text = "Pinned"
+            )
         }
         item {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(horizontal = 24.dp)
             ) {
                 items(
                     items = state.pinnedNotes,
@@ -88,12 +97,16 @@ fun NotesScreen(
             }
         }
         item {
-            Subtitle(text = "Others")
+            Subtitle(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                text = "Others"
+            )
         }
         state.otherNotes.forEach { note ->
             item(key = note.id) {
                 NoteCard(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = 24.dp),
                     note = note,
                     onNoteClick = {
                         viewModel.processCommand(NotesCommand.EditNote(it))
