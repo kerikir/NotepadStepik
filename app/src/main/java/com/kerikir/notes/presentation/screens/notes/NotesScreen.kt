@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kerikir.notes.domain.Note
+import com.kerikir.notes.presentation.ui.theme.Yellow200
 
 @Composable
 fun NotesScreen(
@@ -44,6 +45,20 @@ fun NotesScreen(
     ) {
 
         item {
+            Title(text = "All Notes")
+        }
+        item {
+            SearchBar(
+                query = state.query,
+                onQueryChanged = {
+                    viewModel.processCommand(NotesCommand.InputSearchQuery(it))
+                }
+            )
+        }
+        item {
+            Subtitle(text = "Pinned")
+        }
+        item {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -55,9 +70,16 @@ fun NotesScreen(
                 ) { note ->
                     NoteCard(
                         note = note,
-                        onNoteClick = { note ->
-                            viewModel.processCommand(NotesCommand.SwitchPinnedStatus(note.id))
-                        }
+                        onNoteClick = {
+                            viewModel.processCommand(NotesCommand.EditNote(it))
+                        },
+                        onDoubleClick = {
+                            viewModel.processCommand(NotesCommand.DeleteNote(it.id))
+                        },
+                        onLongClick = {
+                            viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
+                        },
+                        backgroundColor = Yellow200
                     )
                 }
             }
