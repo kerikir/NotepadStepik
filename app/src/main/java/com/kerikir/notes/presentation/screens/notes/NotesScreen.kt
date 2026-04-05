@@ -164,13 +164,22 @@ fun NoteCard(
                     onDoubleClick(note)
                 }
             )
-    ) { }
-
-    Text(
-        modifier = modifier.clickable {
-            onNoteClick(note)
-        },
-        text = "${note.title} - ${note.content}",
-        fontSize = 26.sp
-    )
+    ) {
+        Text(
+            text = note.title,
+            fontSize = 14.sp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Text(
+            text = note.updatedAt.toString(),
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = note.content,
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+            fontWeight = FontWeight.Medium
+        )
+    }
 }
