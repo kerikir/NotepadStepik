@@ -1,6 +1,7 @@
 package com.kerikir.notes.presentation.screens.notes
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -133,7 +134,12 @@ private fun SearchBar(
     onQueryChanged: (String) -> Unit
 ) {
     TextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                shape = RoundedCornerShape(10.dp)
+            ),
         value = query,
         onValueChange = onQueryChanged,
         placeholder = {
