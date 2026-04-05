@@ -46,8 +46,7 @@ fun NotesScreen(
 
     LazyColumn(
         modifier = modifier
-            .padding(top = 48.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(top = 48.dp)
     ) {
 
         item {
@@ -55,6 +54,9 @@ fun NotesScreen(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 text = "All Notes"
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
         }
         item {
             SearchBar(
@@ -66,10 +68,16 @@ fun NotesScreen(
             )
         }
         item {
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+        item {
             Subtitle(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 text = "Pinned"
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
         }
         item {
             LazyRow(
@@ -99,10 +107,16 @@ fun NotesScreen(
             }
         }
         item {
+            Spacer(modifier = Modifier.height(24.dp))
+        }
+        item {
             Subtitle(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 text = "Others"
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
         }
         state.otherNotes.forEach { note ->
             item(key = note.id) {
@@ -121,6 +135,7 @@ fun NotesScreen(
                     },
                     backgroundColor = Green
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
