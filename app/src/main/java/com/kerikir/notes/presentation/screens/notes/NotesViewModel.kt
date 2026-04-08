@@ -2,6 +2,7 @@
 
 package com.kerikir.notes.presentation.screens.notes
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.kerikir.notes.data.TestNotesRepositoryImpl
 import com.kerikir.notes.domain.AddNoteUseCase
@@ -100,6 +101,12 @@ class NotesViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("MainActivity", "OnCleared")
     }
 }
 
