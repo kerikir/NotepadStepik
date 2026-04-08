@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 class NotesViewModel : ViewModel() {
@@ -69,30 +70,34 @@ class NotesViewModel : ViewModel() {
 
     // TODO: don't forget to remove it
     private fun addSomeNotes() {
-        repeat(10_000) {
-            addNoteUseCase(title = "Title №$it", content = "Content №$it")
+        scope.launch {
+            repeat(10_000) {
+                addNoteUseCase(title = "Title №$it", content = "Content №$it")
+            }
         }
     }
 
 
     fun processCommand(command: NotesCommand) {
-        when (command) {
-            is NotesCommand.DeleteNote -> {
-                deleteNoteUseCase(command.noteId)
-            }
+        scope.launch {
+            when (command) {
+                is NotesCommand.DeleteNote -> {
+                    deleteNoteUseCase(command.noteId)
+                }
 
-            is NotesCommand.EditNote -> {
-                val note = getNoteUseCase(command.note.id)
-                val title = note.title
-                editNoteUseCase(note.copy(title = "$title edited"))
-            }
+                is NotesCommand.EditNote -> {
+                    val note = getNoteUseCase(command.note.id)
+                    val title = note.title
+                    editNoteUseCase(note.copy(title = "$title edited"))
+                }
 
-            is NotesCommand.InputSearchQuery -> {
-                query.update { command.query.trim() }
-            }
+                is NotesCommand.InputSearchQuery -> {
+                    query.update { command.query.trim() }
+                }
 
-            is NotesCommand.SwitchPinnedStatus -> {
-                switchPinnedStatusUseCase(command.noteId)
+                is NotesCommand.SwitchPinnedStatus -> {
+                    switchPinnedStatusUseCase(command.noteId)
+                }
             }
         }
     }
