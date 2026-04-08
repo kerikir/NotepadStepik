@@ -8,6 +8,11 @@ class AddNoteUseCase(
         title: String,
         content: String
     ) {
-        repository.addNote(title, content)
+        repository.addNote(
+            title = title,
+            content = content,
+            isPinned = false,
+            updatedAt = System.currentTimeMillis()
+        )
     }
 }
