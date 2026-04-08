@@ -4,6 +4,7 @@ package com.kerikir.notes.presentation.screens.notes
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kerikir.notes.data.TestNotesRepositoryImpl
 import com.kerikir.notes.domain.AddNoteUseCase
 import com.kerikir.notes.domain.DeleteNoteUseCase
@@ -44,7 +45,6 @@ class NotesViewModel : ViewModel() {
     private val _state = MutableStateFlow(NotesScreenState())
     val state = _state.asStateFlow()
 
-    private val scope = CoroutineScope(Dispatchers.IO)
 
 
     init {
@@ -66,13 +66,13 @@ class NotesViewModel : ViewModel() {
                 val otherNotes = notes.filter { !it.isPinned }
                 _state.update { it.copy(pinnedNotes = pinnedNotes, otherNotes = otherNotes) }
             }
-            .launchIn(scope)
+            .launchIn(viewModelScope)
     }
 
 
     // TODO: don't forget to remove it
     private fun addSomeNotes() {
-        scope.launch {
+        viewModelScope.launch {
             repeat(10_000) {
                 addNoteUseCase(title = "Title №$it", content = "Content №$it")
             }
@@ -81,7 +81,7 @@ class NotesViewModel : ViewModel() {
 
 
     fun processCommand(command: NotesCommand) {
-        scope.launch {
+        viewModelScope.launch {
             when (command) {
                 is NotesCommand.DeleteNote -> {
                     deleteNoteUseCase(command.noteId)
@@ -102,13 +102,6 @@ class NotesViewModel : ViewModel() {
                 }
             }
         }
-    }
-
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("MainActivity", "OnCleared")
-        scope.cancel()
     }
 }
 
