@@ -5,6 +5,10 @@ class EditNoteUseCase(
 ) {
 
     operator fun invoke(note: Note) {
-        repository.editNote(note = note)
+        repository.editNote(
+            note = note.copy(
+                updatedAt = System.currentTimeMillis()
+            )
+        )
     }
 }
