@@ -118,9 +118,6 @@ fun NotesScreen(
                             onNoteClick = {
                                 viewModel.processCommand(NotesCommand.EditNote(it))
                             },
-                            onDoubleClick = {
-                                viewModel.processCommand(NotesCommand.DeleteNote(it.id))
-                            },
                             onLongClick = {
                                 viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
                             },
@@ -149,9 +146,6 @@ fun NotesScreen(
                         note = note,
                         onNoteClick = {
                             viewModel.processCommand(NotesCommand.EditNote(it))
-                        },
-                        onDoubleClick = {
-                            viewModel.processCommand(NotesCommand.DeleteNote(it.id))
                         },
                         onLongClick = {
                             viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
@@ -242,8 +236,7 @@ fun NoteCard(
     note: Note,
     backgroundColor: Color,
     onNoteClick: (Note) -> Unit,
-    onLongClick: (Note) -> Unit,
-    onDoubleClick: (Note) -> Unit
+    onLongClick: (Note) -> Unit
 ) {
 
     Column(
@@ -256,9 +249,6 @@ fun NoteCard(
                 },
                 onLongClick = {
                     onLongClick(note)
-                },
-                onDoubleClick = {
-                    onDoubleClick(note)
                 }
             )
             .padding(16.dp)
