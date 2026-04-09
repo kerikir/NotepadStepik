@@ -47,10 +47,11 @@ fun NotesScreen(
 
     val state by viewModel.state.collectAsState()
 
-    Scaffold {  innerPadding ->
+    Scaffold(
+        modifier = modifier
+    ) {  innerPadding ->
         LazyColumn(
-            modifier = modifier
-                .padding(innerPadding)
+            contentPadding = innerPadding
         ) {
 
             item {
