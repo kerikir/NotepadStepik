@@ -35,11 +35,6 @@ class NotesViewModel : ViewModel() {
     private val searchNotesUseCase = SearchNotesUseCase(repository)
     private val switchPinnedStatusUseCase = SwitchPinnedStatusUseCase(repository)
 
-    private val addNoteUseCase = AddNoteUseCase(repository)
-    private val editNoteUseCase = EditNoteUseCase(repository)
-    private val deleteNoteUseCase = DeleteNoteUseCase(repository)
-    private val getNoteUseCase = GetNoteUseCase(repository)
-
     private val query = MutableStateFlow("")
 
     private val _state = MutableStateFlow(NotesScreenState())
