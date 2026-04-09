@@ -47,7 +47,8 @@ import com.kerikir.notes.presentation.utils.DateFormatter
 fun NotesScreen(
     modifier: Modifier = Modifier,
     viewModel: NotesViewModel = viewModel(),
-    onNoteClick: (Note) -> Unit
+    onNoteClick: (Note) -> Unit,
+    onFabClick: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -56,7 +57,7 @@ fun NotesScreen(
         modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = onFabClick,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary,
                 shape = CircleShape

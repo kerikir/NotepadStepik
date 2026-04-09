@@ -17,6 +17,9 @@ class MainActivity : ComponentActivity() {
                 NotesScreen(
                     onNoteClick = {
                         Log.d("MainActivity", "onNoteClick: $it")
+                    },
+                    onFabClick = {
+                        Log.d("MainActivity", "on FAB click")
                     }
                 )
             }
