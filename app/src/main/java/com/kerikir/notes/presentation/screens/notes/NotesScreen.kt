@@ -46,7 +46,8 @@ import com.kerikir.notes.presentation.utils.DateFormatter
 @Composable
 fun NotesScreen(
     modifier: Modifier = Modifier,
-    viewModel: NotesViewModel = viewModel()
+    viewModel: NotesViewModel = viewModel(),
+    onNoteClick: (Note) -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -115,9 +116,7 @@ fun NotesScreen(
                         NoteCard(
                             modifier = Modifier.widthIn(max = 160.dp),
                             note = note,
-                            onNoteClick = {
-                                viewModel.processCommand(NotesCommand.EditNote(it))
-                            },
+                            onNoteClick = onNoteClick,
                             onLongClick = {
                                 viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
                             },
@@ -144,9 +143,7 @@ fun NotesScreen(
                         modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 24.dp),
                         note = note,
-                        onNoteClick = {
-                            viewModel.processCommand(NotesCommand.EditNote(it))
-                        },
+                        onNoteClick = onNoteClick,
                         onLongClick = {
                             viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
                         },
