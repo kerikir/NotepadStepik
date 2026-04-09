@@ -76,7 +76,7 @@ class NotesViewModel : ViewModel() {
             repeat(10_000) {
                 addNoteUseCase(
                     title = "Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it",
-                    content = "Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it"
+                    content = "Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it"
                 )
             }
         }
