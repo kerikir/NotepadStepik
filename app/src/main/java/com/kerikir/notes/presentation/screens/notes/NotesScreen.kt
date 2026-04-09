@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -48,7 +49,14 @@ fun NotesScreen(
     val state by viewModel.state.collectAsState()
 
     Scaffold(
-        modifier = modifier
+        modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {},
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {}
+        }
     ) {  innerPadding ->
         LazyColumn(
             contentPadding = innerPadding
