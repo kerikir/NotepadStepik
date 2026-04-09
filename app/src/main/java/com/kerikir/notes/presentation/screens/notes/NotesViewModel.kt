@@ -72,16 +72,6 @@ class NotesViewModel : ViewModel() {
     fun processCommand(command: NotesCommand) {
         viewModelScope.launch {
             when (command) {
-                is NotesCommand.DeleteNote -> {
-                    deleteNoteUseCase(command.noteId)
-                }
-
-                is NotesCommand.EditNote -> {
-                    val note = getNoteUseCase(command.note.id)
-                    val title = note.title
-                    editNoteUseCase(note.copy(title = "$title edited"))
-                }
-
                 is NotesCommand.InputSearchQuery -> {
                     query.update { command.query.trim() }
                 }
@@ -100,12 +90,6 @@ sealed interface NotesCommand {
     data class InputSearchQuery(val query: String) : NotesCommand
 
     data class SwitchPinnedStatus(val noteId: Int) : NotesCommand
-
-    // Temp
-
-    data class DeleteNote(val noteId: Int) : NotesCommand
-
-    data class EditNote(val note: Note) : NotesCommand
 }
 
 
