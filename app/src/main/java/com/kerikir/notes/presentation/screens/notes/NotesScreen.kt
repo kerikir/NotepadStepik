@@ -48,7 +48,7 @@ fun NotesScreen(
     modifier: Modifier = Modifier,
     viewModel: NotesViewModel = viewModel(),
     onNoteClick: (Note) -> Unit,
-    onFabClick: () -> Unit
+    onAddNoteClick: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -57,7 +57,7 @@ fun NotesScreen(
         modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onFabClick,
+                onClick = onAddNoteClick,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = MaterialTheme.colorScheme.primary,
                 shape = CircleShape

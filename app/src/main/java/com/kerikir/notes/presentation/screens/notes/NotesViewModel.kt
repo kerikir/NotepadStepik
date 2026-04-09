@@ -48,8 +48,6 @@ class NotesViewModel : ViewModel() {
 
 
     init {
-        addSomeNotes()
-
         query
             .onEach { input ->
                 _state.update { it.copy(query = input) }
@@ -69,18 +67,6 @@ class NotesViewModel : ViewModel() {
             .launchIn(viewModelScope)
     }
 
-
-    // TODO: don't forget to remove it
-    private fun addSomeNotes() {
-        viewModelScope.launch {
-            repeat(10_000) {
-                addNoteUseCase(
-                    title = "Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it Title №$it",
-                    content = "Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it Content №$it"
-                )
-            }
-        }
-    }
 
 
     fun processCommand(command: NotesCommand) {
