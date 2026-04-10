@@ -34,7 +34,8 @@ import com.kerikir.notes.presentation.utils.DateFormatter
 @Composable
 fun CreateNoteScreen(
     modifier: Modifier = Modifier,
-    viewModel: CreateNoteViewModel = viewModel()
+    viewModel: CreateNoteViewModel = viewModel(),
+    onFinished: () -> Unit
 ) {
 
     val state = viewModel.state.collectAsState()
@@ -157,6 +158,8 @@ fun CreateNoteScreen(
             }
         }
 
-        CreateNoteState.Finished -> {}
+        CreateNoteState.Finished -> {
+            onFinished()
+        }
     }
 }
