@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
 fun CreateNoteScreen(
@@ -97,6 +98,12 @@ fun CreateNoteScreen(
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                             )
                         }
+                    )
+                    Text(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = DateFormatter.formatCurrentDate(),
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
