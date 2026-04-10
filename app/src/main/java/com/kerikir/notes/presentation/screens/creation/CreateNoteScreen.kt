@@ -161,7 +161,9 @@ fun CreateNoteScreen(
         }
 
         CreateNoteState.Finished -> {
-            onFinished()
+            LaunchedEffect(key1 = Unit) {
+                onFinished()
+            }
         }
     }
 }
