@@ -31,15 +31,22 @@ class CreateNoteViewModel: ViewModel() {
                             isSaveEnabled = previousState.title.isNotBlank() && command.content.isNotBlank()
                         )
                     } else {
-                        CreateNoteState.Creation(
-                            content = command.content
-                        )
+                        CreateNoteState.Creation(content = command.content)
                     }
                 }
             }
 
             is CreateNoteCommand.InputTitle -> {
-
+                _state.update { previousState ->
+                    if (previousState is CreateNoteState.Creation) {
+                        previousState.copy(
+                            title = command.title,
+                            isSaveEnabled = command.title.isNotBlank() && previousState.content.isNotBlank()
+                        )
+                    } else {
+                        CreateNoteState.Creation(title = command.title)
+                    }
+                }
             }
 
             CreateNoteCommand.Save -> {
