@@ -2,6 +2,7 @@
 
 package com.kerikir.notes.presentation.screens.creation
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +45,11 @@ fun CreateNoteScreen(
 
     when(currentState) {
         is CreateNoteState.Creation -> {
+
+            LaunchedEffect(key1 = currentState.isSaveEnabled) {
+                Log.d("CreateNoteScreen", "Button change state")
+            }
+
             Scaffold(
                 modifier = modifier,
                 topBar = {
