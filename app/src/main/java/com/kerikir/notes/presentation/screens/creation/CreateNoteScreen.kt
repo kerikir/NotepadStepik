@@ -45,11 +45,6 @@ fun CreateNoteScreen(
 
     when(currentState) {
         is CreateNoteState.Creation -> {
-
-            LaunchedEffect(key1 = currentState.isSaveEnabled) {
-                Log.d("CreateNoteScreen", "Button change state")
-            }
-
             Scaffold(
                 modifier = modifier,
                 topBar = {
