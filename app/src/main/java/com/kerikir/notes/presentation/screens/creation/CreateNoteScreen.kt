@@ -105,6 +105,31 @@ fun CreateNoteScreen(
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    TextField(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        value = currentState.content,
+                        onValueChange = {
+                            viewModel.processCommand(CreateNoteCommand.InputContent(it))
+                        },
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        textStyle = TextStyle(
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface
+                        ),
+                        placeholder = {
+                            Text(
+                                text = "Note something down",
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+                            )
+                        }
+                    )
                 }
             }
         }
