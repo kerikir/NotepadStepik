@@ -22,12 +22,26 @@ class CreateNoteViewModel: ViewModel() {
             CreateNoteCommand.Back -> {
                 _state.update { CreateNoteState.Finished }
             }
-            is CreateNoteCommand.InputContent -> {
 
+            is CreateNoteCommand.InputContent -> {
+                _state.update { previousState ->
+                    if (previousState is CreateNoteState.Creation) {
+                        previousState.copy(
+                            content = command.content,
+                            isSaveEnabled = previousState.title.isNotBlank() && command.content.isNotBlank()
+                        )
+                    } else {
+                        CreateNoteState.Creation(
+                            content = command.content
+                        )
+                    }
+                }
             }
+
             is CreateNoteCommand.InputTitle -> {
 
             }
+
             CreateNoteCommand.Save -> {
                 viewModelScope.launch {
                     _state.update { previousState ->
