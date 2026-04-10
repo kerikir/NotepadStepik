@@ -109,8 +109,10 @@ fun CreateNoteScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     TextField(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                            .weight(1f),
                         value = currentState.content,
                         onValueChange = {
                             viewModel.processCommand(CreateNoteCommand.InputContent(it))
