@@ -32,26 +32,22 @@ class EditNoteViewModel: ViewModel() {
 
             is EditNoteCommand.InputContent -> {
                 _state.update { previousState ->
-                    if (previousState is EditNoteState.Creation) {
-                        previousState.copy(
-                            content = command.content,
-                            isSaveEnabled = previousState.title.isNotBlank() && command.content.isNotBlank()
-                        )
+                    if (previousState is EditNoteState.Editing) {
+                        val newNote = previousState.note.copy(content = command.content)
+                        previousState.copy(note = newNote)
                     } else {
-                        EditNoteState.Creation(content = command.content)
+                        previousState
                     }
                 }
             }
 
             is EditNoteCommand.InputTitle -> {
                 _state.update { previousState ->
-                    if (previousState is EditNoteState.Creation) {
-                        previousState.copy(
-                            title = command.title,
-                            isSaveEnabled = command.title.isNotBlank() && previousState.content.isNotBlank()
-                        )
+                    if (previousState is EditNoteState.Editing) {
+                        val newNote = previousState.note.copy(title = command.title)
+                        previousState.copy(note = newNote)
                     } else {
-                        EditNoteState.Creation(title = command.title)
+                        previousState
                     }
                 }
             }
@@ -59,10 +55,9 @@ class EditNoteViewModel: ViewModel() {
             EditNoteCommand.Save -> {
                 viewModelScope.launch {
                     _state.update { previousState ->
-                        if (previousState is EditNoteState.Creation) {
-                            val title = previousState.title
-                            val content = previousState.content
-                            addNoteUseCase(title, content)
+                        if (previousState is EditNoteState.Editing) {
+                            val note = previousState.note
+                            editNoteUseCase(note)
                             EditNoteState.Finished
                         } else {
                             previousState
@@ -70,6 +65,8 @@ class EditNoteViewModel: ViewModel() {
                     }
                 }
             }
+
+            EditNoteCommand.Delete -> TODO()
         }
     }
 }
@@ -93,9 +90,9 @@ sealed interface EditNoteState {
 
     data object Initial : EditNoteState
 
-    data class Creation(
+    data class Editing(
        val note: Note
-    ) : {
+    ) : EditNoteState {
 
         val isSaveEnabled: Boolean
             get() = note.title.isNotBlank() && note.content.isNotBlank()
