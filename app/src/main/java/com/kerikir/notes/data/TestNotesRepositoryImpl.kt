@@ -16,7 +16,7 @@ object TestNotesRepositoryImpl : NotesRepository {
         }
     }
 
-    private val notesListFlow = MutableStateFlow<List<Note>>(testData))
+    private val notesListFlow = MutableStateFlow<List<Note>>(testData)
 
     override suspend fun addNote(
         title: String,

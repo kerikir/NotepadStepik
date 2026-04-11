@@ -62,7 +62,8 @@ fun EditNoteScreen(
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = Color.Transparent,
-                            navigationIconContentColor = MaterialTheme.colorScheme.onSurface
+                            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                            actionIconContentColor = MaterialTheme.colorScheme.onSurface
                         ),
                         actions = {
                             Icon(
