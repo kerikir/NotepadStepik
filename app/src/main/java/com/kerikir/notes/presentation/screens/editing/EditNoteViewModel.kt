@@ -17,13 +17,13 @@ class EditNoteViewModel: ViewModel() {
     private val _state = MutableStateFlow<CreateNoteState>(CreateNoteState.Creation())
     val state = _state.asStateFlow()
 
-    fun processCommand(command: CreateNoteCommand) {
+    fun processCommand(command: EditNoteCommand) {
         when (command) {
-            CreateNoteCommand.Back -> {
+            EditNoteCommand.Back -> {
                 _state.update { CreateNoteState.Finished }
             }
 
-            is CreateNoteCommand.InputContent -> {
+            is EditNoteCommand.InputContent -> {
                 _state.update { previousState ->
                     if (previousState is CreateNoteState.Creation) {
                         previousState.copy(
@@ -36,7 +36,7 @@ class EditNoteViewModel: ViewModel() {
                 }
             }
 
-            is CreateNoteCommand.InputTitle -> {
+            is EditNoteCommand.InputTitle -> {
                 _state.update { previousState ->
                     if (previousState is CreateNoteState.Creation) {
                         previousState.copy(
@@ -49,7 +49,7 @@ class EditNoteViewModel: ViewModel() {
                 }
             }
 
-            CreateNoteCommand.Save -> {
+            EditNoteCommand.Save -> {
                 viewModelScope.launch {
                     _state.update { previousState ->
                         if (previousState is CreateNoteState.Creation) {
@@ -68,15 +68,17 @@ class EditNoteViewModel: ViewModel() {
 }
 
 
-sealed interface CreateNoteCommand {
+sealed interface EditNoteCommand {
 
-    data class InputTitle(val title: String) : CreateNoteCommand
+    data class InputTitle(val title: String) : EditNoteCommand
 
-    data class InputContent(val content: String) : CreateNoteCommand
+    data class InputContent(val content: String) : EditNoteCommand
 
-    data object Save : CreateNoteCommand
+    data object Save : EditNoteCommand
 
-    data object Back : CreateNoteCommand
+    data object Back : EditNoteCommand
+
+    data object Delete : EditNoteCommand
 }
 
 
