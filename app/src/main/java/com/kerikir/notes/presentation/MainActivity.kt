@@ -16,25 +16,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NotesTheme {
-                EditNoteScreen(
-                    noteId = 5,
-                    onFinished = {
-                        Log.d("EditNoteScreen", "Finished")
-                    }
-                )
-//                CreateNoteScreen(
-//                    onFinished = {
-//                        Log.d("CreateNoteScreen", "Finished")
-//                    }
-//                )
-//                NotesScreen(
-//                    onNoteClick = {
-//                        Log.d("MainActivity", "onNoteClick: $it")
-//                    },
-//                    onAddNoteClick = {
-//                        Log.d("MainActivity", "onAddNoteClick")
-//                    }
-//                )
             }
         }
     }
