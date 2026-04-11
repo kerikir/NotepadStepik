@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kerikir.notes.data.TestNotesRepositoryImpl
 import com.kerikir.notes.domain.AddNoteUseCase
+import com.kerikir.notes.domain.DeleteNoteUseCase
+import com.kerikir.notes.domain.EditNoteUseCase
+import com.kerikir.notes.domain.GetNoteUseCase
 import com.kerikir.notes.domain.Note
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,9 +16,12 @@ import kotlinx.coroutines.launch
 class EditNoteViewModel: ViewModel() {
 
     private val repository = TestNotesRepositoryImpl
-    private val addNoteUseCase = AddNoteUseCase(repository)
 
-    private val _state = MutableStateFlow<EditNoteState>(EditNoteState.Creation())
+    private val editNoteUseCase = EditNoteUseCase(repository)
+    private val getNoteUseCase = GetNoteUseCase(repository)
+    private val deleteNoteUseCase = DeleteNoteUseCase(repository)
+
+    private val _state = MutableStateFlow<EditNoteState>(EditNoteState.Initial)
     val state = _state.asStateFlow()
 
     fun processCommand(command: EditNoteCommand) {
