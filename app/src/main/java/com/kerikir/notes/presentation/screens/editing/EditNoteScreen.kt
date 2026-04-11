@@ -39,7 +39,9 @@ import com.kerikir.notes.presentation.utils.DateFormatter
 fun EditNoteScreen(
     modifier: Modifier = Modifier,
     noteId: Int,
-    viewModel: CreateNoteViewModel = viewModel(),
+    viewModel: EditNoteViewModel = viewModel {
+        EditNoteViewModel(noteId)
+    },
     onFinished: () -> Unit
 ) {
 
