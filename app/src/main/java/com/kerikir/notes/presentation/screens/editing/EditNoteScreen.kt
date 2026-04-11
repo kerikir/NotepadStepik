@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kerikir.notes.presentation.screens.editing.EditNoteCommand.*
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -53,7 +54,7 @@ fun EditNoteScreen(
                     TopAppBar(
                         title = {
                             Text(
-                                text = "Create Note",
+                                text = "Edit Note",
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -85,7 +86,7 @@ fun EditNoteScreen(
                             .padding(horizontal = 8.dp),
                         value = currentState.note.title,
                         onValueChange = {
-                            viewModel.processCommand(EditNoteCommand.InputTitle(it))
+                            viewModel.processCommand(InputTitle(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -109,7 +110,7 @@ fun EditNoteScreen(
                     )
                     Text(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = DateFormatter.formatCurrentDate(),
+                        text = DateFormatter.formatDateToString(currentState.note.updatedAt),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -120,7 +121,7 @@ fun EditNoteScreen(
                             .weight(1f),
                         value = currentState.note.content,
                         onValueChange = {
-                            viewModel.processCommand(EditNoteCommand.InputContent(it))
+                            viewModel.processCommand(InputContent(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -167,5 +168,7 @@ fun EditNoteScreen(
                 onFinished()
             }
         }
+
+        EditNoteState.Initial -> {}
     }
 }
