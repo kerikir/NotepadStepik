@@ -13,22 +13,21 @@ fun NavGraph() {
     val screen = remember {
         mutableStateOf<Screen>(Screen.Notes)
     }
-    val currentScreen = screen.value
 
-    when (currentScreen) {
+    when (val currentScreen = screen.value) {
         Screen.CreateNote -> {
             CreateNoteScreen(
                 onFinished = {
-
+                    screen.value = Screen.Notes
                 }
             )
         }
 
         is Screen.EditNote -> {
             EditNoteScreen(
-                noteId = 5,
+                noteId = currentScreen.noteId,
                 onFinished = {
-
+                    screen.value = Screen.Notes
                 }
             )
         }

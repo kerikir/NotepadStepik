@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.kerikir.notes.presentation.navigation.NavGraph
 import com.kerikir.notes.presentation.screens.creation.CreateNoteScreen
 import com.kerikir.notes.presentation.screens.editing.EditNoteScreen
 import com.kerikir.notes.presentation.screens.notes.NotesScreen
@@ -16,6 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NotesTheme {
+                NavGraph()
             }
         }
     }
