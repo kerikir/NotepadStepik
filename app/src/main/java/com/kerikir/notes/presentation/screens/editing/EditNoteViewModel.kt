@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class EditNoteViewModel: ViewModel() {
+class EditNoteViewModel(private val noteId: Int): ViewModel() {
 
     private val repository = TestNotesRepositoryImpl
 
@@ -23,6 +23,17 @@ class EditNoteViewModel: ViewModel() {
 
     private val _state = MutableStateFlow<EditNoteState>(EditNoteState.Initial)
     val state = _state.asStateFlow()
+
+
+    init {
+        viewModelScope.launch {
+            _state.update {
+                val note = getNoteUseCase(noteId)
+                EditNoteState.Editing(note)
+            }
+        }
+    }
+
 
     fun processCommand(command: EditNoteCommand) {
         when (command) {
