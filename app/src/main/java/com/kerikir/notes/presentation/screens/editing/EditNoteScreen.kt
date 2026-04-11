@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kerikir.notes.presentation.screens.editing.EditNoteCommand.*
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -64,6 +64,17 @@ fun EditNoteScreen(
                             containerColor = Color.Transparent,
                             navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                         ),
+                        actions = {
+                            Icon(
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .clickable{
+                                        viewModel.processCommand(EditNoteCommand.Delete)
+                                    },
+                                imageVector = Icons.Outlined.Delete,
+                                contentDescription = "Delete note"
+                            )
+                        },
                         navigationIcon = {
                             Icon(
                                 modifier = Modifier
@@ -86,7 +97,7 @@ fun EditNoteScreen(
                             .padding(horizontal = 8.dp),
                         value = currentState.note.title,
                         onValueChange = {
-                            viewModel.processCommand(InputTitle(it))
+                            viewModel.processCommand(EditNoteCommand.InputTitle(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -121,7 +132,7 @@ fun EditNoteScreen(
                             .weight(1f),
                         value = currentState.note.content,
                         onValueChange = {
-                            viewModel.processCommand(InputContent(it))
+                            viewModel.processCommand(EditNoteCommand.InputContent(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
