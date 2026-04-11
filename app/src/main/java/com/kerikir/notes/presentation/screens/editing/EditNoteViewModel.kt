@@ -66,7 +66,19 @@ class EditNoteViewModel: ViewModel() {
                 }
             }
 
-            EditNoteCommand.Delete -> TODO()
+            EditNoteCommand.Delete -> {
+                viewModelScope.launch {
+                    _state.update { previousState ->
+                        if (previousState is EditNoteState.Editing) {
+                            val note = previousState.note
+                            deleteNoteUseCase(note.id)
+                            EditNoteState.Finished
+                        } else {
+                            previousState
+                        }
+                    }
+                }
+            }
         }
     }
 }
