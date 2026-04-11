@@ -30,9 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kerikir.notes.presentation.screens.creation.CreateNoteCommand
-import com.kerikir.notes.presentation.screens.creation.CreateNoteState
-import com.kerikir.notes.presentation.screens.creation.CreateNoteViewModel
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -49,7 +46,7 @@ fun EditNoteScreen(
     val currentState = state.value
 
     when(currentState) {
-        is CreateNoteState.Creation -> {
+        is EditNoteState.Editing -> {
             Scaffold(
                 modifier = modifier,
                 topBar = {
@@ -71,7 +68,7 @@ fun EditNoteScreen(
                                 modifier = Modifier
                                     .padding(start = 16.dp, end = 8.dp)
                                     .clickable{
-                                        viewModel.processCommand(CreateNoteCommand.Back)
+                                        viewModel.processCommand(EditNoteCommand.Back)
                                     },
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back"
@@ -86,9 +83,9 @@ fun EditNoteScreen(
                     TextField(
                         modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 8.dp),
-                        value = currentState.title,
+                        value = currentState.note.title,
                         onValueChange = {
-                            viewModel.processCommand(CreateNoteCommand.InputTitle(it))
+                            viewModel.processCommand(EditNoteCommand.InputTitle(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -121,9 +118,9 @@ fun EditNoteScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 8.dp)
                             .weight(1f),
-                        value = currentState.content,
+                        value = currentState.note.content,
                         onValueChange = {
-                            viewModel.processCommand(CreateNoteCommand.InputContent(it))
+                            viewModel.processCommand(EditNoteCommand.InputContent(it))
                         },
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
@@ -148,7 +145,7 @@ fun EditNoteScreen(
                             .padding(horizontal = 24.dp)
                             .fillMaxWidth(),
                         onClick = {
-                            viewModel.processCommand(CreateNoteCommand.Save)
+                            viewModel.processCommand(EditNoteCommand.Save)
                         },
                         shape = RoundedCornerShape(10.dp),
                         enabled = currentState.isSaveEnabled,
@@ -165,7 +162,7 @@ fun EditNoteScreen(
             }
         }
 
-        CreateNoteState.Finished -> {
+        EditNoteState.Finished -> {
             LaunchedEffect(key1 = Unit) {
                 onFinished()
             }
