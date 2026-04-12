@@ -1,6 +1,5 @@
 package com.kerikir.notes.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -10,35 +9,42 @@ import com.kerikir.notes.presentation.screens.notes.NotesScreen
 
 @Composable
 fun NavGraph() {
+
+}
+
+
+
+@Composable
+fun CustomNavGraph() {
     val screen = remember {
-        mutableStateOf<Screen>(Screen.Notes)
+        mutableStateOf<CustomScreen>(CustomScreen.Notes)
     }
 
     when (val currentScreen = screen.value) {
-        Screen.CreateNote -> {
+        CustomScreen.CreateNote -> {
             CreateNoteScreen(
                 onFinished = {
-                    screen.value = Screen.Notes
+                    screen.value = CustomScreen.Notes
                 }
             )
         }
 
-        is Screen.EditNote -> {
+        is CustomScreen.EditNote -> {
             EditNoteScreen(
                 noteId = currentScreen.noteId,
                 onFinished = {
-                    screen.value = Screen.Notes
+                    screen.value = CustomScreen.Notes
                 }
             )
         }
 
-        Screen.Notes -> {
+        CustomScreen.Notes -> {
             NotesScreen(
                 onNoteClick = {
-                    screen.value = Screen.EditNote(it.id)
+                    screen.value = CustomScreen.EditNote(it.id)
                 },
                 onAddNoteClick = {
-                    screen.value = Screen.CreateNote
+                    screen.value = CustomScreen.CreateNote
                 }
             )
         }
@@ -53,4 +59,14 @@ sealed interface Screen {
     data object CreateNote: Screen
 
     data class EditNote(val noteId: Int): Screen
+}
+
+
+sealed interface CustomScreen {
+
+    data object Notes: CustomScreen
+
+    data object CreateNote: CustomScreen
+
+    data class EditNote(val noteId: Int): CustomScreen
 }
