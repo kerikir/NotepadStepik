@@ -3,13 +3,30 @@ package com.kerikir.notes.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.kerikir.notes.presentation.screens.creation.CreateNoteScreen
 import com.kerikir.notes.presentation.screens.editing.EditNoteScreen
 import com.kerikir.notes.presentation.screens.notes.NotesScreen
 
 @Composable
 fun NavGraph() {
+    val navController = rememberNavController()
 
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Notes.route
+    ) {
+        composable(Screen.Notes.route) {
+            NotesScreen(
+                onNoteClick = {
+                },
+                onAddNoteClick = {
+                }
+            )
+        }
+    }
 }
 
 
