@@ -21,7 +21,7 @@ fun NavGraph() {
         composable(Screen.Notes.route) {
             NotesScreen(
                 onNoteClick = {
-                    navController.navigate(Screen.EditNote.route)
+                    navController.navigate(Screen.EditNote.createRoute(it.id))
                 },
                 onAddNoteClick = {
                     navController.navigate(Screen.CreateNote.route)
@@ -92,7 +92,12 @@ sealed class Screen(val route: String) {
 
     data object CreateNote: Screen("create_note")
 
-    data object EditNote: Screen("edit_note")
+    data object EditNote: Screen("edit_note") {
+
+        fun createRoute(noteId: Int): String {
+            return "edit_note/$noteId"
+        }
+    }
 }
 
 
@@ -102,5 +107,5 @@ sealed interface CustomScreen {
 
     data object CreateNote: CustomScreen
 
-    data class EditNote(val noteId: Int): CustomScreen
+    data class EditNote(val noteId: Int): CustomScreen Х
 }
