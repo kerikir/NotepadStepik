@@ -26,6 +26,19 @@ fun NavGraph() {
                 }
             )
         }
+        composable(Screen.CreateNote.route) {
+            CreateNoteScreen(
+                onFinished = {
+                }
+            )
+        }
+        composable(Screen.EditNote.route) {
+            EditNoteScreen(
+                noteId = 5,
+                onFinished = {
+                }
+            )
+        }
     }
 }
 
@@ -75,7 +88,7 @@ sealed class Screen(val route: String) {
 
     data object CreateNote: Screen("create_note")
 
-    data class EditNote(val noteId: Int): Screen("edit_note")
+    data object EditNote: Screen("edit_note")
 }
 
 
