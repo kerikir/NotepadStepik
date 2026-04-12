@@ -21,14 +21,17 @@ fun NavGraph() {
         composable(Screen.Notes.route) {
             NotesScreen(
                 onNoteClick = {
+                    navController.navigate(Screen.EditNote.route)
                 },
                 onAddNoteClick = {
+                    navController.navigate(Screen.CreateNote.route)
                 }
             )
         }
         composable(Screen.CreateNote.route) {
             CreateNoteScreen(
                 onFinished = {
+                    navController.navigate(Screen.Notes.route)
                 }
             )
         }
@@ -36,6 +39,7 @@ fun NavGraph() {
             EditNoteScreen(
                 noteId = 5,
                 onFinished = {
+                    navController.navigate(Screen.Notes.route)
                 }
             )
         }
