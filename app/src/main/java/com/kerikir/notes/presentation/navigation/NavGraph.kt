@@ -36,8 +36,10 @@ fun NavGraph() {
             )
         }
         composable(Screen.EditNote.route) {
+            val noteId = it.arguments?.getString("note_id")?.toInt() ?: 0
+
             EditNoteScreen(
-                noteId = 5,
+                noteId = noteId,
                 onFinished = {
                     navController.popBackStack()
                 }
@@ -92,7 +94,7 @@ sealed class Screen(val route: String) {
 
     data object CreateNote: Screen("create_note")
 
-    data object EditNote: Screen("edit_note") {
+    data object EditNote: Screen("edit_note/{note_id}") {
 
         fun createRoute(noteId: Int): String {
             return "edit_note/$noteId"
