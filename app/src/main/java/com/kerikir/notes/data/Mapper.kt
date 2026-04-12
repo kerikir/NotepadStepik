@@ -1,0 +1,7 @@
+package com.kerikir.notes.data
+
+import com.kerikir.notes.domain.Note
+
+fun Note.toDbModel(): NoteDbModel {
+    return NoteDbModel(id, title, content, updatedAt, isPinned)
+}
