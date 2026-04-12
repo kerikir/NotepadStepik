@@ -52,13 +52,13 @@ fun CustomNavGraph() {
 }
 
 
-sealed interface Screen {
+sealed class Screen(val route: String) {
 
-    data object Notes: Screen
+    data object Notes: Screen("notes")
 
-    data object CreateNote: Screen
+    data object CreateNote: Screen("create_note")
 
-    data class EditNote(val noteId: Int): Screen
+    data class EditNote(val noteId: Int): Screen("edit_note")
 }
 
 
