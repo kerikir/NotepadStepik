@@ -1,5 +1,6 @@
 package com.kerikir.notes.presentation.navigation
 
+import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +37,7 @@ fun NavGraph() {
             )
         }
         composable(Screen.EditNote.route) {
-            val noteId = it.arguments?.getString("note_id")?.toInt() ?: 0
+            val noteId = Screen.EditNote.getNoteId(it.arguments)
 
             EditNoteScreen(
                 noteId = noteId,
@@ -99,6 +100,10 @@ sealed class Screen(val route: String) {
         fun createRoute(noteId: Int): String {
             return "edit_note/$noteId"
         }
+
+        fun getNoteId(arguments: Bundle?): Int {
+            return arguments?.getString("note_id")?.toInt() ?: 0
+        }
     }
 }
 
@@ -109,5 +114,5 @@ sealed interface CustomScreen {
 
     data object CreateNote: CustomScreen
 
-    data class EditNote(val noteId: Int): CustomScreen Х
+    data class EditNote(val noteId: Int): CustomScreen
 }
