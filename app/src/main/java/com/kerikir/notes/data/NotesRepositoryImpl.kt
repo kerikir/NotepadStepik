@@ -6,7 +6,7 @@ import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class NotesRepositoryImpl(context: Context) : NotesRepository {
+class NotesRepositoryImpl private constructor(context: Context) : NotesRepository {
 
     private val notesDatabase = NotesDatabase.getInstance(context)
     private val notesDao = notesDatabase.notesDao()
@@ -44,5 +44,25 @@ class NotesRepositoryImpl(context: Context) : NotesRepository {
 
     override suspend fun switchPinnedStatus(noteId: Int) {
         notesDao.switchPinnedStatus(noteId)
+    }
+
+
+    companion object {
+
+        private val LOCK = Any()
+        private var instance: NotesRepositoryImpl? = null
+
+        fun getInstance(context: Context): NotesRepositoryImpl {
+
+            instance?.let { return it }
+
+            synchronized(LOCK) {
+                instance?.let { return it }
+
+                return NotesRepositoryImpl(context).also {
+                    instance = it
+                }
+            }
+        }
     }
 }
