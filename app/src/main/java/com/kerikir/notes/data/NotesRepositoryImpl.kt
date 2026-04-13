@@ -4,6 +4,7 @@ import android.content.Context
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.NotesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class NotesRepositoryImpl(context: Context) : NotesRepository {
 
@@ -30,7 +31,7 @@ class NotesRepositoryImpl(context: Context) : NotesRepository {
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
-        TODO("Not yet implemented")
+        return notesDao.getAllNotes().map { it.toEntities() }
     }
 
     override suspend fun getNote(noteId: Int): Note {
