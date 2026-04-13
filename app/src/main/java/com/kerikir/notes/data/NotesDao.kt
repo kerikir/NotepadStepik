@@ -1,6 +1,8 @@
 package com.kerikir.notes.data
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +20,7 @@ interface NotesDao {
 
     @Query("UPDATE notes SET isPinned = NOT isPinned WHERE id == :noteId")
     suspend fun switchPinnedStatus(noteId: Int)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addNote(noteDbModel: NoteDbModel)
 }
