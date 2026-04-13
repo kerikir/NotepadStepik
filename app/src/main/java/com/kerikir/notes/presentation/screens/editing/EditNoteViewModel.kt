@@ -1,7 +1,9 @@
 package com.kerikir.notes.presentation.screens.editing
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kerikir.notes.data.NotesRepositoryImpl
 import com.kerikir.notes.data.TestNotesRepositoryImpl
 import com.kerikir.notes.domain.DeleteNoteUseCase
 import com.kerikir.notes.domain.EditNoteUseCase
@@ -12,9 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class EditNoteViewModel(private val noteId: Int): ViewModel() {
+class EditNoteViewModel(private val noteId: Int, context: Context): ViewModel() {
 
-    private val repository = TestNotesRepositoryImpl
+    private val repository = NotesRepositoryImpl.getInstance(context)
 
     private val editNoteUseCase = EditNoteUseCase(repository)
     private val getNoteUseCase = GetNoteUseCase(repository)

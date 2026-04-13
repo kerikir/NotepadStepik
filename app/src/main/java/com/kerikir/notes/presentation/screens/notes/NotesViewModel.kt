@@ -2,22 +2,15 @@
 
 package com.kerikir.notes.presentation.screens.notes
 
-import android.util.Log
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kerikir.notes.data.TestNotesRepositoryImpl
-import com.kerikir.notes.domain.AddNoteUseCase
-import com.kerikir.notes.domain.DeleteNoteUseCase
-import com.kerikir.notes.domain.EditNoteUseCase
+import com.kerikir.notes.data.NotesRepositoryImpl
 import com.kerikir.notes.domain.GetAllNotesUseCase
-import com.kerikir.notes.domain.GetNoteUseCase
 import com.kerikir.notes.domain.Note
 import com.kerikir.notes.domain.SearchNotesUseCase
 import com.kerikir.notes.domain.SwitchPinnedStatusUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -27,9 +20,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-class NotesViewModel : ViewModel() {
+class NotesViewModel(context: Context) : ViewModel() {
 
-    private val repository = TestNotesRepositoryImpl
+    private val repository = NotesRepositoryImpl.getInstance(context)
 
     private val getAllNotesUseCase = GetAllNotesUseCase(repository)
     private val searchNotesUseCase = SearchNotesUseCase(repository)
