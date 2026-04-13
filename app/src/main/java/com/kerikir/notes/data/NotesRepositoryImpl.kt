@@ -17,15 +17,16 @@ class NotesRepositoryImpl(context: Context) : NotesRepository {
         isPinned: Boolean,
         updatedAt: Long
     ) {
-        TODO("Not yet implemented")
+        val noteDbModel = NoteDbModel(0, title, content, updatedAt, isPinned)
+        notesDao.addNote(noteDbModel)
     }
 
     override suspend fun deleteNote(noteId: Int) {
-        TODO("Not yet implemented")
+        notesDao.deleteNote(noteId)
     }
 
     override suspend fun editNote(note: Note) {
-        TODO("Not yet implemented")
+        notesDao.addNote(note.toDbModel())
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
