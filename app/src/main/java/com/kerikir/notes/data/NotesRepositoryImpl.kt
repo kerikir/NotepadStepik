@@ -35,14 +35,14 @@ class NotesRepositoryImpl(context: Context) : NotesRepository {
     }
 
     override suspend fun getNote(noteId: Int): Note {
-        TODO("Not yet implemented")
+        return notesDao.getNote(noteId).toEntity()
     }
 
     override fun searchNotes(query: String): Flow<List<Note>> {
-        TODO("Not yet implemented")
+        return notesDao.searchNotes(query).map { it.toEntities() }
     }
 
     override suspend fun switchPinnedStatus(noteId: Int) {
-        TODO("Not yet implemented")
+        notesDao.switchPinnedStatus(noteId)
     }
 }
