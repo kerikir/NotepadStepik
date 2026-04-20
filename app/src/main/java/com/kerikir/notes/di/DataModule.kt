@@ -1,6 +1,7 @@
 package com.kerikir.notes.di
 
 import android.content.Context
+import com.kerikir.notes.data.NotesDao
 import com.kerikir.notes.data.NotesDatabase
 import com.kerikir.notes.data.NotesRepositoryImpl
 import com.kerikir.notes.domain.NotesRepository
@@ -31,6 +32,14 @@ interface DataModule {
             @ApplicationContext context: Context
         ): NotesDatabase {
             return NotesDatabase.getInstance(context)
+        }
+
+        @Singleton
+        @Provides
+        fun provideNotesDao(
+            database: NotesDatabase
+        ): NotesDao {
+            return database.notesDao()
         }
     }
 }
