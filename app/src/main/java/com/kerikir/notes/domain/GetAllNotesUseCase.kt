@@ -1,9 +1,10 @@
 package com.kerikir.notes.domain
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
-class GetAllNotesUseCase(
+class GetAllNotesUseCase @Inject constructor(
     private val repository: NotesRepository
 ) {
 
