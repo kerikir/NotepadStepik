@@ -181,7 +181,7 @@ private fun TextContent(
     onTextChanged: (String) -> Unit
 ) {
     TextField(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp),
         value = text,
