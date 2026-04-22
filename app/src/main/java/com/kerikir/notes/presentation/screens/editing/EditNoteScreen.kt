@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.kerikir.notes.domain.ContentItem
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -128,6 +129,16 @@ fun EditNoteScreen(
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    currentState.note.content.filterIsInstance<ContentItem.Text>()
+                        .forEach { contentItem ->
+                        TextContent(
+                            modifier = Modifier.weight(1f),
+                            text = contentItem.content,
+                            onTextChanged = {
+                                viewModel.processCommand(EditNoteCommand.InputContent(it))
+                            }
+                        )
+                    }
 
                     Button(
                         modifier = Modifier
