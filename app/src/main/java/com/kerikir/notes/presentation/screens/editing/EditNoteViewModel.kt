@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kerikir.notes.data.NotesRepositoryImpl
-import com.kerikir.notes.data.TestNotesRepositoryImpl
 import com.kerikir.notes.domain.DeleteNoteUseCase
 import com.kerikir.notes.domain.EditNoteUseCase
 import com.kerikir.notes.domain.GetNoteUseCase
