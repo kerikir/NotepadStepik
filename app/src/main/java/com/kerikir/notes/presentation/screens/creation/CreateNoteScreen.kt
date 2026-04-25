@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.kerikir.notes.presentation.ui.theme.CustomIcons
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -69,6 +70,14 @@ fun CreateNoteScreen(
                                     },
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back"
+                            )
+                        },
+                        actions = {
+                            Icon(
+                                modifier = Modifier.padding(end = 24.dp),
+                                imageVector = CustomIcons.AddPhoto,
+                                contentDescription = "Add photo from gallery",
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     )
