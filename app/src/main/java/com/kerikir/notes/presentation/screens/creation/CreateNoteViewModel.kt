@@ -76,7 +76,22 @@ class CreateNoteViewModel @Inject constructor(
             }
 
             is CreateNoteCommand.AddImage -> {
-
+                _state.update { previousState ->
+                    if (previousState is CreateNoteState.Creation) {
+                        previousState.content.toMutableList().apply {
+                            val lastItem = this.last()
+                            if (lastItem is ContentItem.Text && lastItem.content.isBlank()) {
+                                this.removeAt(this.lastIndex)
+                            }
+                            add(ContentItem.Image(url = command.uri.toString()))
+                            add(ContentItem.Text(""))
+                        }.let {
+                            previousState.copy(content = it)
+                        }
+                    } else {
+                        previousState
+                    }
+                }
             }
         }
     }
