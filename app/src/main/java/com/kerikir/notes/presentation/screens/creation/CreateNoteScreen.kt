@@ -146,36 +146,7 @@ fun CreateNoteScreen(
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    LazyColumn(
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        currentState.content.forEachIndexed { index, contentItem ->
-                            item(key = index) {
-                                when (contentItem) {
-                                    is ContentItem.Image -> {
-                                        ImageContent(
-                                            imageUrl = contentItem.url,
-                                            onDeleteImageClick = {}
-                                        )
-                                    }
 
-                                    is ContentItem.Text -> {
-                                        TextContent(
-                                            text = contentItem.content,
-                                            onTextChanged = {
-                                                viewModel.processCommand(
-                                                    CreateNoteCommand.InputContent(
-                                                        content = it,
-                                                        index = index
-                                                    )
-                                                )
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
                     Button(
                         modifier = Modifier
                             .padding(horizontal = 24.dp)
@@ -201,6 +172,48 @@ fun CreateNoteScreen(
         CreateNoteState.Finished -> {
             LaunchedEffect(key1 = Unit) {
                 onFinished()
+            }
+        }
+    }
+}
+
+
+
+@Composable
+private fun Content(
+    modifier: Modifier = Modifier,
+    content: List<ContentItem>,
+    onDeleteImageClick: (Int) -> Unit,
+    onTextChanged: (Int, String) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier
+    ) {
+        content.forEachIndexed { index, contentItem ->
+            item(key = index) {
+                when (contentItem) {
+                    is ContentItem.Image -> {
+                        val isAlreadyDisplayed = index > 0 && content[index - 1] is ContentItem.Image
+
+                        content.takeIf { !isAlreadyDisplayed }
+                            ?.drop(index)
+                            ?.takeWhile { it is ContentItem.Image }
+                            ?.map { (it as ContentItem.Image).url }
+                            ?.let { urls ->
+                                ImageGroup(
+                                    imageUrls = urls,
+                                    onDeleteImageClick = {}
+                                )
+                            }
+                    }
+
+                    is ContentItem.Text -> {
+                        TextContent(
+                            text = contentItem.content,
+                            onTextChanged = {}
+                        )
+                    }
+                }
             }
         }
     }
