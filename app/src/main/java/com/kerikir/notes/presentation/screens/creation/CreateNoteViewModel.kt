@@ -1,5 +1,6 @@
 package com.kerikir.notes.presentation.screens.creation
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kerikir.notes.domain.AddNoteUseCase
@@ -74,7 +75,9 @@ sealed interface CreateNoteCommand {
 
     data class InputTitle(val title: String) : CreateNoteCommand
 
-    data class InputContent(val content: String) : CreateNoteCommand
+    data class InputContent(val content: String, val index: Int) : CreateNoteCommand
+
+    data class AddImage(val uri: Uri) : CreateNoteCommand
 
     data object Save : CreateNoteCommand
 
