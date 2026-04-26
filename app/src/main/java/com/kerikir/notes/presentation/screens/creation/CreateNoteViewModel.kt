@@ -63,8 +63,10 @@ class CreateNoteViewModel @Inject constructor(
                     _state.update { previousState ->
                         if (previousState is CreateNoteState.Creation) {
                             val title = previousState.title
-                            val content = Text(content = previousState.content)
-                            addNoteUseCase(title, listOf(content))
+                            val content = previousState.content.filter {
+                                it !is ContentItem.Text || it.content.isNotBlank()
+                            }
+                            addNoteUseCase(title, content)
                             CreateNoteState.Finished
                         } else {
                             previousState
