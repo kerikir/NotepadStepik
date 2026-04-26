@@ -89,9 +89,22 @@ sealed interface CreateNoteState {
 
     data class Creation(
         val title: String = "",
-        val content: String = "",
-        val isSaveEnabled: Boolean = false
-    ) : CreateNoteState
+        val content: List<ContentItem> = listOf(ContentItem.Text(""))
+    ) : CreateNoteState {
+
+        val isSaveEnabled: Boolean
+            get() {
+                return when {
+                    title.isBlank() -> false
+                    content.isEmpty() -> false
+                    else -> {
+                        content.any {
+                            it !is ContentItem.Text || it.content.isNotBlank()
+                        }
+                    }
+                }
+            }
+    }
 
     data object Finished: CreateNoteState
 }
