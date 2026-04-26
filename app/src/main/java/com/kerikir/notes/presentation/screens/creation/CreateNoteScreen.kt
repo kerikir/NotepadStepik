@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -150,7 +151,10 @@ fun CreateNoteScreen(
                             item(key = index) {
                                 when (contentItem) {
                                     is ContentItem.Image -> {
-
+                                        ImageContent(
+                                            imageUrl = contentItem.url,
+                                            onDeleteImageClick = {}
+                                        )
                                     }
 
                                     is ContentItem.Text -> {
@@ -212,10 +216,12 @@ private fun ImageContent(
         modifier = modifier
     ) {
         AsyncImage(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp)),
             model = imageUrl,
-            contentDescription = "Image from gallery"
+            contentDescription = "Image from gallery",
+            contentScale = ContentScale.FillWidth
         )
         Icon(
             modifier = Modifier.align(Alignment.TopEnd)
