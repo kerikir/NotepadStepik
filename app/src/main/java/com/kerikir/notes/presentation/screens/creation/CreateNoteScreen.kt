@@ -4,7 +4,6 @@ package com.kerikir.notes.presentation.screens.creation
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -49,8 +48,10 @@ fun CreateNoteScreen(
 
     val imagePicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
-        onResult = {
-            Log.d("CreateNoteScreen", it.toString())
+        onResult = { uri ->
+            uri?.let {
+                viewModel.processCommand(CreateNoteCommand.AddImage(it))
+            }
         }
     )
 
