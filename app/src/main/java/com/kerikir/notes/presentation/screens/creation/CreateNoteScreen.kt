@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import coil3.compose.AsyncImage
 import com.kerikir.notes.domain.ContentItem
 import com.kerikir.notes.presentation.ui.theme.CustomIcons
 import com.kerikir.notes.presentation.utils.DateFormatter
@@ -144,9 +145,9 @@ fun CreateNoteScreen(
                             item(key = index) {
                                 when (contentItem) {
                                     is ContentItem.Image -> {
-                                        TextContent(
-                                            text = contentItem.url,
-                                            onTextChanged = {}
+                                        AsyncImage(
+                                            model = contentItem.url,
+                                            contentDescription = "Image from gallery"
                                         )
                                     }
 
