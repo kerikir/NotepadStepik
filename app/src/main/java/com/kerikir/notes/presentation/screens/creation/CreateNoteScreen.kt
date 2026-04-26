@@ -6,8 +6,10 @@ import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -234,6 +236,30 @@ private fun ImageContent(
             contentDescription = "Remove image",
             tint = MaterialTheme.colorScheme.onSurface
         )
+    }
+}
+
+
+
+@Composable
+private fun ImageGroup(
+    modifier: Modifier = Modifier,
+    imageUrls: List<String>,
+    onDeleteImageClick: (Int) -> Unit
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        imageUrls.forEachIndexed { index, url ->
+            ImageContent(
+                modifier = Modifier.weight(1f),
+                imageUrl = url,
+                onDeleteImageClick = {
+                    onDeleteImageClick(index)
+                }
+            )
+        }
     }
 }
 
