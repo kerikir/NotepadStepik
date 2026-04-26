@@ -146,7 +146,20 @@ fun CreateNoteScreen(
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-
+                    Content(
+                        modifier = Modifier.weight(1f)
+                            .padding(24.dp),
+                        content = currentState.content,
+                        onDeleteImageClick = {},
+                        onTextChanged = { index, text ->
+                            viewModel.processCommand(
+                                CreateNoteCommand.InputContent(
+                                    content = text,
+                                    index = index
+                                )
+                            )
+                        }
+                    )
                     Button(
                         modifier = Modifier
                             .padding(horizontal = 24.dp)
@@ -210,7 +223,9 @@ private fun Content(
                     is ContentItem.Text -> {
                         TextContent(
                             text = contentItem.content,
-                            onTextChanged = {}
+                            onTextChanged = {
+                                onTextChanged(index, it)
+                            }
                         )
                     }
                 }
