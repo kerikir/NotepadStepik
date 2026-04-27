@@ -147,8 +147,7 @@ fun CreateNoteScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Content(
-                        modifier = Modifier.weight(1f)
-                            .padding(24.dp),
+                        modifier = Modifier.weight(1f),
                         content = currentState.content,
                         onDeleteImageClick = {},
                         onTextChanged = { index, text ->
@@ -214,6 +213,7 @@ private fun Content(
                             ?.map { (it as ContentItem.Image).url }
                             ?.let { urls ->
                                 ImageGroup(
+                                    modifier = Modifier.padding(horizontal = 24.dp),
                                     imageUrls = urls,
                                     onDeleteImageClick = {}
                                 )
