@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kerikir.notes.domain.ContentItem
+import com.kerikir.notes.presentation.screens.Content
 import com.kerikir.notes.presentation.utils.DateFormatter
 
 @Composable
@@ -129,17 +130,23 @@ fun EditNoteScreen(
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    currentState.note.content.filterIsInstance<ContentItem.Text>()
-                        .forEach { contentItem ->
-                        TextContent(
-                            modifier = Modifier.weight(1f),
-                            text = contentItem.content,
-                            onTextChanged = {
-                                viewModel.processCommand(EditNoteCommand.InputContent(it))
-                            }
-                        )
-                    }
-
+                    Content(
+                        modifier = Modifier.weight(1f),
+                        content = currentState.note.content,
+                        onDeleteImageClick = {
+                            viewModel.processCommand(
+                                EditNoteCommand.DeleteImage(it)
+                            )
+                        },
+                        onTextChanged = { index, text ->
+                            viewModel.processCommand(
+                                EditNoteCommand.InputContent(
+                                    index = index,
+                                    content = text
+                                )
+                            )
+                        }
+                    )
                     Button(
                         modifier = Modifier
                             .padding(horizontal = 24.dp)
@@ -170,38 +177,4 @@ fun EditNoteScreen(
 
         EditNoteState.Initial -> {}
     }
-}
-
-
-
-@Composable
-private fun TextContent(
-    modifier: Modifier = Modifier,
-    text: String,
-    onTextChanged: (String) -> Unit
-) {
-    TextField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp),
-        value = text,
-        onValueChange = onTextChanged,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        textStyle = TextStyle(
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface
-        ),
-        placeholder = {
-            Text(
-                text = "Note something down",
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
-            )
-        }
-    )
 }
