@@ -48,8 +48,16 @@ class EditNoteViewModel @AssistedInject constructor(
             is EditNoteCommand.InputContent -> {
                 _state.update { previousState ->
                     if (previousState is EditNoteState.Editing) {
-                        val newContent = ContentItem.Text(content = command.content)
-                        val newNote = previousState.note.copy(content = listOf(newContent))
+                        val newContent = previousState.note.content
+                            .mapIndexed { index, item ->
+                                if (index == command.index && item is ContentItem.Text) {
+                                    item.copy(content = command.content)
+                                } else {
+                                    item
+                                }
+                            }
+
+                        val newNote = previousState.note.copy(content = newContent)
                         previousState.copy(note = newNote)
                     } else {
                         previousState
@@ -94,6 +102,29 @@ class EditNoteViewModel @AssistedInject constructor(
                         }
                     }
                 }
+            }
+
+            is EditNoteCommand.AddImage -> {
+                _state.update { previousState ->
+                    if (previousState is EditNoteState.Editing) {
+                        previousState.note.content.toMutableList().apply {
+                            val lastItem = this.last()
+                            if (lastItem is ContentItem.Text && lastItem.content.isBlank()) {
+                                this.removeAt(this.lastIndex)
+                            }
+                            add(ContentItem.Image(command.url.toString()))
+                            add(ContentItem.Text(""))
+                        }.let {
+                            previousState.copy(note = previousState.note.copy(content = it))
+                        }
+                    } else {
+                        previousState
+                    }
+                }
+            }
+
+            is EditNoteCommand.DeleteImage -> {
+
             }
         }
     }
