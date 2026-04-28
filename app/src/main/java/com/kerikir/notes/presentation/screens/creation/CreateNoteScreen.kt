@@ -149,7 +149,11 @@ fun CreateNoteScreen(
                     Content(
                         modifier = Modifier.weight(1f),
                         content = currentState.content,
-                        onDeleteImageClick = {},
+                        onDeleteImageClick = {
+                            viewModel.processCommand(
+                                CreateNoteCommand.DeleteImage(it)
+                            )
+                        },
                         onTextChanged = { index, text ->
                             viewModel.processCommand(
                                 CreateNoteCommand.InputContent(
@@ -215,7 +219,9 @@ private fun Content(
                                 ImageGroup(
                                     modifier = Modifier.padding(horizontal = 24.dp),
                                     imageUrls = urls,
-                                    onDeleteImageClick = {}
+                                    onDeleteImageClick = { imageIndex ->
+                                        onDeleteImageClick(index + imageIndex)
+                                    }
                                 )
                             }
                     }
