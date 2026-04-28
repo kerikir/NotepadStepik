@@ -76,6 +76,30 @@ fun Content(
 
 
 @Composable
+private fun ImageGroup(
+    modifier: Modifier = Modifier,
+    imageUrls: List<String>,
+    onDeleteImageClick: (Int) -> Unit
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        imageUrls.forEachIndexed { index, url ->
+            ImageContent(
+                modifier = Modifier.weight(1f),
+                imageUrl = url,
+                onDeleteImageClick = {
+                    onDeleteImageClick(index)
+                }
+            )
+        }
+    }
+}
+
+
+
+@Composable
 private fun ImageContent(
     modifier: Modifier = Modifier,
     imageUrl: String,
@@ -103,30 +127,6 @@ private fun ImageContent(
             contentDescription = "Remove image",
             tint = MaterialTheme.colorScheme.onSurface
         )
-    }
-}
-
-
-
-@Composable
-private fun ImageGroup(
-    modifier: Modifier = Modifier,
-    imageUrls: List<String>,
-    onDeleteImageClick: (Int) -> Unit
-) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        imageUrls.forEachIndexed { index, url ->
-            ImageContent(
-                modifier = Modifier.weight(1f),
-                imageUrl = url,
-                onDeleteImageClick = {
-                    onDeleteImageClick(index)
-                }
-            )
-        }
     }
 }
 
