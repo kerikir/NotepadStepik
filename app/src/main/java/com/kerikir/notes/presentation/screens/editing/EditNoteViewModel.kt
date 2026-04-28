@@ -1,5 +1,6 @@
 package com.kerikir.notes.presentation.screens.editing
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kerikir.notes.domain.ContentItem
@@ -112,7 +113,11 @@ sealed interface EditNoteCommand {
 
     data class InputTitle(val title: String) : EditNoteCommand
 
-    data class InputContent(val content: String) : EditNoteCommand
+    data class InputContent(val index: Int, val content: String) : EditNoteCommand
+
+    data class AddImage(val url: Uri) : EditNoteCommand
+
+    data class DeleteImage(val index: Int) : EditNoteCommand
 
     data object Save : EditNoteCommand
 
