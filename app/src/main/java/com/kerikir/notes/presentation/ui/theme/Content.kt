@@ -1,4 +1,4 @@
-package com.kerikir.notes.presentation.screens
+package com.kerikir.notes.presentation.ui.theme
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

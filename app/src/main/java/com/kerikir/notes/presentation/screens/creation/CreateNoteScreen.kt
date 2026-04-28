@@ -32,7 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.kerikir.notes.presentation.screens.Content
+import com.kerikir.notes.presentation.ui.theme.Content
 import com.kerikir.notes.presentation.ui.theme.CustomIcons
 import com.kerikir.notes.presentation.utils.DateFormatter
 
