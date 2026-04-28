@@ -124,7 +124,17 @@ class EditNoteViewModel @AssistedInject constructor(
             }
 
             is EditNoteCommand.DeleteImage -> {
-
+                _state.update {  previousState ->
+                    if (previousState is EditNoteState.Editing) {
+                        previousState.note.content.toMutableList().apply {
+                            removeAt(command.index)
+                        }.let {
+                            previousState.copy(note = previousState.note.copy(content = it))
+                        }
+                    } else {
+                        previousState
+                    }
+                }
             }
         }
     }
@@ -138,6 +148,7 @@ class EditNoteViewModel @AssistedInject constructor(
         ): EditNoteViewModel
     }
 }
+
 
 
 sealed interface EditNoteCommand {
@@ -156,6 +167,7 @@ sealed interface EditNoteCommand {
 
     data object Delete : EditNoteCommand
 }
+
 
 
 sealed interface EditNoteState {
