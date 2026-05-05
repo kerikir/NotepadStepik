@@ -23,9 +23,19 @@ class NotesRepositoryImpl @Inject constructor(
         notesDao.addNote(noteDbModel)
     }
 
+
     override suspend fun deleteNote(noteId: Int) {
+        val note = notesDao.getNote(noteId).toEntity()
         notesDao.deleteNote(noteId)
+
+        note.content
+            .filterIsInstance<ContentItem.Image>()
+            .map { it.url }
+            .forEach {
+                imageFileManager.deleteImage(it)
+            }
     }
+
 
     override suspend fun editNote(note: Note) {
         val oldNote = notesDao.getNote(note.id).toEntity()
@@ -44,17 +54,21 @@ class NotesRepositoryImpl @Inject constructor(
         notesDao.addNote(processedNote.toDbModel())
     }
 
+
     override fun getAllNotes(): Flow<List<Note>> {
         return notesDao.getAllNotes().map { it.toEntities() }
     }
+
 
     override suspend fun getNote(noteId: Int): Note {
         return notesDao.getNote(noteId).toEntity()
     }
 
+
     override fun searchNotes(query: String): Flow<List<Note>> {
         return notesDao.searchNotes(query).map { it.toEntities() }
     }
+
 
     override suspend fun switchPinnedStatus(noteId: Int) {
         notesDao.switchPinnedStatus(noteId)
