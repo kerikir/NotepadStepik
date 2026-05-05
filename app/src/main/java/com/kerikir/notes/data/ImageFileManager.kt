@@ -31,4 +31,9 @@ class ImageFileManager @Inject constructor(
 
         return file.absolutePath
     }
+
+
+    fun isInternal(url: String): Boolean {
+        return url.startsWith(imagesDir.absolutePath)
+    }
 }
