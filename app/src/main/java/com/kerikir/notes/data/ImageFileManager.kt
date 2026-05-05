@@ -23,6 +23,8 @@ class ImageFileManager @Inject constructor(
         val outputStream = file.outputStream()
 
         inputStream?.copyTo(outputStream)
+        inputStream?.close()
+        outputStream.close()
 
         return file.absolutePath
     }
