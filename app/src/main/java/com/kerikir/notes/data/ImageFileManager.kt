@@ -19,12 +19,11 @@ class ImageFileManager @Inject constructor(
         val fileName = "IMG_${UUID.randomUUID()}.jpg"
         val file = File(imagesDir, fileName)
 
-        val inputStream = context.contentResolver.openInputStream(url.toUri())
-        val outputStream = file.outputStream()
-
-        inputStream?.copyTo(outputStream)
-        inputStream?.close()
-        outputStream.close()
+        context.contentResolver.openInputStream(url.toUri())?.use { inputStream ->
+            file.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
 
         return file.absolutePath
     }
