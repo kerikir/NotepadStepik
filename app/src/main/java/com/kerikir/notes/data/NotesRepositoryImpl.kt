@@ -18,7 +18,7 @@ class NotesRepositoryImpl @Inject constructor(
         isPinned: Boolean,
         updatedAt: Long
     ) {
-        val note = Note(0, title, content, updatedAt, isPinned)
+        val note = Note(0, title, content.processForStorage(), updatedAt, isPinned)
         val noteDbModel = note.toDbModel()
         notesDao.addNote(noteDbModel)
     }
