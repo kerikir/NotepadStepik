@@ -28,7 +28,20 @@ class NotesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun editNote(note: Note) {
-        notesDao.addNote(note.toDbModel())
+        val oldNote = notesDao.getNote(note.id).toEntity()
+
+        val oldUrls = oldNote.content.filterIsInstance<ContentItem.Image>().map { it.url }
+        val newUrls = note.content.filterIsInstance<ContentItem.Image>().map { it.url }
+        val removedUrls = oldUrls - newUrls
+
+        removedUrls.forEach {
+            imageFileManager.deleteImage(it)
+        }
+
+        val processedContent = note.content.processForStorage()
+        val processedNote = note.copy(content = processedContent)
+
+        notesDao.addNote(processedNote.toDbModel())
     }
 
     override fun getAllNotes(): Flow<List<Note>> {
