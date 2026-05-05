@@ -3,6 +3,8 @@ package com.kerikir.notes.data
 import android.content.Context
 import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
 import javax.inject.Inject
@@ -14,14 +16,16 @@ class ImageFileManager @Inject constructor(
     private val imagesDir: File = context.filesDir
 
 
-    fun copyImageToInternalStorage(url: String): String {
+    suspend fun copyImageToInternalStorage(url: String): String {
 
         val fileName = "IMG_${UUID.randomUUID()}.jpg"
         val file = File(imagesDir, fileName)
 
-        context.contentResolver.openInputStream(url.toUri())?.use { inputStream ->
-            file.outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
+        withContext(Dispatchers.IO) {
+            context.contentResolver.openInputStream(url.toUri())?.use { inputStream ->
+                file.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
             }
         }
 
