@@ -36,4 +36,14 @@ class ImageFileManager @Inject constructor(
     fun isInternal(url: String): Boolean {
         return url.startsWith(imagesDir.absolutePath)
     }
+
+
+    suspend fun deleteImage(url: String) {
+        withContext(Dispatchers.IO) {
+            val file = File(url)
+            if (file.exists() && isInternal(file.absolutePath)) {
+                file.delete()
+            }
+        }
+    }
 }
