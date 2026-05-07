@@ -290,12 +290,14 @@ fun NoteCard(
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        Spacer(modifier = Modifier.height(24.dp))
 
         note.content
             .filterIsInstance<ContentItem.Text>()
+            .filter { it.content.isNotBlank() }
             .joinToString("\n") { it.content }
-            .let {
+            .takeIf { it.isNotBlank() }
+            ?.let {
+                Spacer(modifier = Modifier.height(24.dp))
                 Text(
                     text = it,
                     fontSize = 16.sp,
@@ -363,6 +365,7 @@ fun NoteCardWithImage(
 
         note.content
             .filterIsInstance<ContentItem.Text>()
+            .filter { it.content.isNotBlank() }
             .joinToString("\n") { it.content }
             .takeIf { it.isNotBlank() }
             ?.let {
