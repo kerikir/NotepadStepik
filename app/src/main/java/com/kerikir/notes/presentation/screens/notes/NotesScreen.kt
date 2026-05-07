@@ -146,16 +146,36 @@ fun NotesScreen(
             }
             state.otherNotes.forEachIndexed { index, note ->
                 item(key = note.id) {
-                    NoteCard(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 24.dp),
-                        note = note,
-                        onNoteClick = onNoteClick,
-                        onLongClick = {
-                            viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
-                        },
-                        backgroundColor = OtherNotesColors[index % OtherNotesColors.size]
-                    )
+                    val imageUrl = note.content
+                        .filterIsInstance<ContentItem.Image>()
+                        .map { it.url }
+                        .firstOrNull()
+
+                    if (imageUrl == null) {
+                        NoteCard(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = 24.dp),
+                            note = note,
+                            onNoteClick = onNoteClick,
+                            onLongClick = {
+                                viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
+                            },
+                            backgroundColor = OtherNotesColors[index % OtherNotesColors.size]
+                        )
+                    } else {
+                        NoteCardWithImage(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = 24.dp),
+                            note = note,
+                            imageUrl = imageUrl,
+                            onNoteClick = onNoteClick,
+                            onLongClick = {
+                                viewModel.processCommand(NotesCommand.SwitchPinnedStatus(it.id))
+                            },
+                            backgroundColor = OtherNotesColors[index % OtherNotesColors.size]
+                        )
+                    }
+
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
