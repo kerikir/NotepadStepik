@@ -282,3 +282,59 @@ fun NoteCard(
             }
     }
 }
+
+
+@Composable
+fun NoteCardWithImage(
+    modifier: Modifier = Modifier,
+    note: Note,
+    imageUrl: String,
+    backgroundColor: Color,
+    onNoteClick: (Note) -> Unit,
+    onLongClick: (Note) -> Unit
+) {
+
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(backgroundColor)
+            .combinedClickable(
+                onClick = {
+                    onNoteClick(note)
+                },
+                onLongClick = {
+                    onLongClick(note)
+                }
+            )
+            .padding(16.dp)
+    ) {
+        Text(
+            text = note.title,
+            fontSize = 14.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = DateFormatter.formatDateToString(note.updatedAt),
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+
+        note.content
+            .filterIsInstance<ContentItem.Text>()
+            .joinToString("\n") { it.content }
+            .let {
+                Text(
+                    text = it,
+                    fontSize = 16.sp,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+    }
+}
