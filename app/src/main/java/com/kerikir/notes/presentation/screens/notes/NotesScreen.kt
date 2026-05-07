@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +29,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -306,21 +308,28 @@ fun NoteCardWithImage(
                     onLongClick(note)
                 }
             )
-            .padding(16.dp)
     ) {
-        Text(
-            text = note.title,
-            fontSize = 14.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = DateFormatter.formatDateToString(note.updatedAt),
-            fontSize = 12.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        Box{
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(16.dp)
+                    .align(Alignment.BottomStart)
+            ) {
+                Text(
+                    text = note.title,
+                    fontSize = 14.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+                Text(
+                    text = DateFormatter.formatDateToString(note.updatedAt),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         note.content
