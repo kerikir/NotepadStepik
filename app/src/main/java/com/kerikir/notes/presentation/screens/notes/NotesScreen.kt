@@ -341,13 +341,13 @@ fun NoteCardWithImage(
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
         note.content
             .filterIsInstance<ContentItem.Text>()
             .joinToString("\n") { it.content }
-            .let {
+            .takeIf { it.isNotBlank() }
+            ?.let {
                 Text(
+                    modifier = Modifier.padding(16.dp),
                     text = it,
                     fontSize = 16.sp,
                     maxLines = 3,
