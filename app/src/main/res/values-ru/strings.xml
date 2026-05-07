@@ -8,4 +8,9 @@
     <string name="others">Остальные</string>
     <string name="first_image_from_note">Первое изображение из заметки</string>
     <string name="search_notes">Поиск заметки</string>
+    <string name="create_note">Создание заметки</string>
+    <string name="back">Назад</string>
+    <string name="add_photo_from_gallery">Добавить фото из галереи</string>
+    <string name="title">Название</string>
+    <string name="save_note">Сохранить заметку</string>
 </resources>
