@@ -2,4 +2,10 @@
 <resources>
     <string name="app_name">Notes</string>
     <string name="search">Поиск...</string>
+    <string name="button_add_note">Кнопка добавления заметки</string>
+    <string name="all_notes">Заметки</string>
+    <string name="pinned">Закрепленные</string>
+    <string name="others">Остальные</string>
+    <string name="first_image_from_note">Первое изображение из заметки</string>
+    <string name="search_notes">Поиск заметки</string>
 </resources>

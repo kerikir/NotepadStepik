@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Notes</string>
     <string name="search">Search...</string>
+    <string name="button_add_note">Button add note</string>
+    <string name="all_notes">All Notes</string>
+    <string name="pinned">Pinned</string>
+    <string name="others">Others</string>
+    <string name="first_image_from_note">First image from note</string>
+    <string name="search_notes">Search Notes</string>
 </resources>
