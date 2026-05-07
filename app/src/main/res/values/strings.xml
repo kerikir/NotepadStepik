@@ -14,4 +14,6 @@
     <string name="save_note">Save Note</string>
     <string name="edit_note">Edit Note</string>
     <string name="delete_note">Delete note</string>
+    <string name="just_now">Just now</string>
+    <string name="h_ago">%1$d h ago</string>
 </resources>

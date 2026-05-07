@@ -15,4 +15,6 @@
     <string name="save_note">Сохранить заметку</string>
     <string name="edit_note">Редактирование заметки</string>
     <string name="delete_note">Удалить заметку</string>
+    <string name="just_now">Только что</string>
+    <string name="h_ago">%1$d ч назад</string>
 </resources>
