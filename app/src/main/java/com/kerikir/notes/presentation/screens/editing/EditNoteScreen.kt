@@ -28,11 +28,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.kerikir.notes.R
 import com.kerikir.notes.presentation.ui.theme.Content
 import com.kerikir.notes.presentation.ui.theme.CustomIcons
 import com.kerikir.notes.presentation.utils.DateFormatter
@@ -69,7 +71,7 @@ fun EditNoteScreen(
                     TopAppBar(
                         title = {
                             Text(
-                                text = "Edit Note",
+                                text = stringResource(R.string.edit_note),
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -88,28 +90,28 @@ fun EditNoteScreen(
                                     }
                                     .padding(end = 16.dp),
                                 imageVector = CustomIcons.AddPhoto,
-                                contentDescription = "Add photo from gallery",
+                                contentDescription = stringResource(R.string.add_photo_from_gallery),
                                 tint = MaterialTheme.colorScheme.onSurface
                             )
                             Icon(
                                 modifier = Modifier
                                     .padding(end = 24.dp)
-                                    .clickable{
+                                    .clickable {
                                         viewModel.processCommand(EditNoteCommand.Delete)
                                     },
                                 imageVector = Icons.Outlined.Delete,
-                                contentDescription = "Delete note"
+                                contentDescription = stringResource(R.string.delete_note)
                             )
                         },
                         navigationIcon = {
                             Icon(
                                 modifier = Modifier
                                     .padding(start = 16.dp, end = 8.dp)
-                                    .clickable{
+                                    .clickable {
                                         viewModel.processCommand(EditNoteCommand.Back)
                                     },
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back"
+                                contentDescription = stringResource(R.string.back)
                             )
                         }
                     )
@@ -119,7 +121,8 @@ fun EditNoteScreen(
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     TextField(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 8.dp),
                         value = currentState.note.title,
                         onValueChange = {
@@ -138,7 +141,7 @@ fun EditNoteScreen(
                         ),
                         placeholder = {
                             Text(
-                                text = "Title",
+                                text = stringResource(R.string.title),
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
@@ -184,7 +187,7 @@ fun EditNoteScreen(
                             disabledContentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
-                        Text(text = "Save Note")
+                        Text(text = stringResource(R.string.save_note))
                     }
                 }
             }

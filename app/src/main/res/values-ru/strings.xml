@@ -13,4 +13,6 @@
     <string name="add_photo_from_gallery">Добавить фото из галереи</string>
     <string name="title">Название</string>
     <string name="save_note">Сохранить заметку</string>
+    <string name="edit_note">Редактирование заметки</string>
+    <string name="delete_note">Удалить заметку</string>
 </resources>
