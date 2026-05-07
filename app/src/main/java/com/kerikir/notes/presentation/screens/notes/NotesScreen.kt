@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -154,7 +155,8 @@ fun NotesScreen(
 
                     if (imageUrl == null) {
                         NoteCard(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(horizontal = 24.dp),
                             note = note,
                             onNoteClick = onNoteClick,
@@ -165,7 +167,8 @@ fun NotesScreen(
                         )
                     } else {
                         NoteCardWithImage(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(horizontal = 24.dp),
                             note = note,
                             imageUrl = imageUrl,
@@ -207,7 +210,8 @@ private fun SearchBar(
     onQueryChanged: (String) -> Unit
 ) {
     TextField(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -217,7 +221,7 @@ private fun SearchBar(
         onValueChange = onQueryChanged,
         placeholder = {
             Text(
-                text = "Search...",
+                text = stringResource(R.string.search),
                 fontSize = 14.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -337,7 +341,8 @@ fun NoteCardWithImage(
     ) {
         Box{
             AsyncImage(
-                modifier = Modifier.heightIn(max = 120.dp)
+                modifier = Modifier
+                    .heightIn(max = 120.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp)),
                 model = imageUrl,
