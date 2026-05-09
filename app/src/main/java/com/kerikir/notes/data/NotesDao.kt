@@ -29,4 +29,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNoteContent(content: List<ContentItemDbModel>)
+
+    @Query("DELETE FROM content WHERE noteId == :noteId")
+    suspend fun deleteNoteContent(noteId: Int)
 }
