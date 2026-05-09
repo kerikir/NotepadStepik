@@ -13,7 +13,7 @@ interface NotesDao {
     fun getAllNotes(): Flow<List<NoteWithContentDbModel>>
 
     @Query("SELECT * FROM notes WHERE id == :noteId")
-    suspend fun getNote(noteId: Int): NoteDbModel
+    suspend fun getNote(noteId: Int): NoteWithContentDbModel
 
     @Query("SELECT * FROM notes WHERE title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%' ORDER BY updatedAt DESC")
     fun searchNotes(query: String): Flow<List<NoteDbModel>>
@@ -26,4 +26,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNote(noteDbModel: NoteDbModel)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addNoteContent(content: List<ContentItemDbModel>)
 }
