@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import com.kerikir.notes.domain.ContentItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -37,4 +39,15 @@ interface NotesDao {
 
     @Query("DELETE FROM content WHERE noteId == :noteId")
     suspend fun deleteNoteContent(noteId: Int)
+
+
+    @Transaction
+    suspend fun addNoteWithContent(
+        noteDbModel: NoteDbModel,
+        content: List<ContentItem>
+    ) {
+        val noteId = addNote(noteDbModel).toInt()
+        val contentItems = content.toContentItemDbModels(noteId)
+        addNoteContent(contentItems)
+    }
 }
