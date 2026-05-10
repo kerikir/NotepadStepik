@@ -11,12 +11,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NotesDao {
 
+    @Transaction
     @Query("SELECT * FROM notes ORDER BY updatedAt DESC")
     fun getAllNotes(): Flow<List<NoteWithContentDbModel>>
 
+    @Transaction
     @Query("SELECT * FROM notes WHERE id == :noteId")
     suspend fun getNote(noteId: Int): NoteWithContentDbModel
 
+    @Transaction
     @Query("""SELECT DISTINCT notes.* FROM notes JOIN content
         ON notes.id == content.noteId
         WHERE title LIKE '%' || :query || '%' 
@@ -25,6 +28,7 @@ interface NotesDao {
         """)
     fun searchNotes(query: String): Flow<List<NoteWithContentDbModel>>
 
+    @Transaction
     @Query("DELETE FROM notes WHERE id == :noteId")
     suspend fun deleteNote(noteId: Int)
 
