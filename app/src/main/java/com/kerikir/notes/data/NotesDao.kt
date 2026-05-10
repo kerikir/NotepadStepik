@@ -21,7 +21,7 @@ interface NotesDao {
         OR content LIKE '%' || :query || '%' 
         ORDER BY updatedAt DESC
         """)
-    fun searchNotes(query: String): Flow<List<NoteDbModel>>
+    fun searchNotes(query: String): Flow<List<NoteWithContentDbModel>>
 
     @Query("DELETE FROM notes WHERE id == :noteId")
     suspend fun deleteNote(noteId: Int)
