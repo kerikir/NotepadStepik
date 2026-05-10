@@ -50,4 +50,15 @@ interface NotesDao {
         val contentItems = content.toContentItemDbModels(noteId)
         addNoteContent(contentItems)
     }
+
+
+    @Transaction
+    suspend fun updateNote(
+        noteDbModel: NoteDbModel,
+        content: List<ContentItemDbModel>
+    ) {
+        addNote(noteDbModel)
+        deleteNoteContent(noteDbModel.id)
+        addNoteContent(content)
+    }
 }
