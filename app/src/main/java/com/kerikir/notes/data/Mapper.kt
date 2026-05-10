@@ -47,12 +47,17 @@ fun List<ContentItemDbModel>.toContentItems(): List<ContentItem> {
 }
 
 
-fun NoteDbModel.toEntity(): Note {
-    val contentItemDbModels = Json.decodeFromString<List<ContentItemDbModel>>(content)
-    return Note(id, title, contentItemDbModels.toContentItems(), updatedAt, isPinned)
+fun NoteWithContentDbModel.toEntity(): Note {
+    return Note(
+        id = noteDbModel.id,
+        title = noteDbModel.title,
+        content = content.toContentItems(),
+        updatedAt = noteDbModel.updatedAt,
+        isPinned = noteDbModel.isPinned
+    )
 }
 
 
-fun List<NoteDbModel>.toEntities(): List<Note> {
+fun List<NoteWithContentDbModel>.toEntities(): List<Note> {
     return this.map { it.toEntity() }
 }
