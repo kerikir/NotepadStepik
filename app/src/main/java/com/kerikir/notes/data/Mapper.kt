@@ -5,8 +5,7 @@ import com.kerikir.notes.domain.Note
 import kotlinx.serialization.json.Json
 
 fun Note.toDbModel(): NoteDbModel {
-    val contentAsString = Json.encodeToString(content.toContentItemDbModels())
-    return NoteDbModel(id, title, contentAsString, updatedAt, isPinned)
+    return NoteDbModel(id, title, updatedAt, isPinned)
 }
 
 
