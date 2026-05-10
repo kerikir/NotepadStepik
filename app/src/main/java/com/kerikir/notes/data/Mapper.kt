@@ -10,14 +10,24 @@ fun Note.toDbModel(): NoteDbModel {
 }
 
 
-fun List<ContentItem>.toContentItemDbModels(): List<ContentItemDbModel> {
-    return map { contentItem ->
+fun List<ContentItem>.toContentItemDbModels(noteId: Int): List<ContentItemDbModel> {
+    return mapIndexed { index, contentItem ->
         when (contentItem) {
             is ContentItem.Image -> {
-                ContentItemDbModel.Image(url = contentItem.url)
+                ContentItemDbModel(
+                    noteId = noteId,
+                    contentType = ContentType.IMAGE,
+                    content = contentItem.url,
+                    order = index
+                )
             }
             is ContentItem.Text -> {
-                ContentItemDbModel.Text(content = contentItem.content)
+                ContentItemDbModel(
+                    noteId = noteId,
+                    contentType = ContentType.TEXT,
+                    content = contentItem.content,
+                    order = index
+                )
             }
         }
     }

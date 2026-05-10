@@ -30,7 +30,7 @@ interface NotesDao {
     suspend fun switchPinnedStatus(noteId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNote(noteDbModel: NoteDbModel)
+    suspend fun addNote(noteDbModel: NoteDbModel): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNoteContent(content: List<ContentItemDbModel>)
