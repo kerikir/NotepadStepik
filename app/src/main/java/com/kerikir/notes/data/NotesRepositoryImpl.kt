@@ -54,6 +54,8 @@ class NotesRepositoryImpl @Inject constructor(
         val processedNote = note.copy(content = processedContent)
 
         notesDao.addNote(processedNote.toDbModel())
+        notesDao.deleteNoteContent(note.id)
+        notesDao.addNoteContent(processedContent.toContentItemDbModels(note.id))
     }
 
 
