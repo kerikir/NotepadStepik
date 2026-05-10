@@ -35,12 +35,13 @@ fun List<ContentItem>.toContentItemDbModels(noteId: Int): List<ContentItemDbMode
 
 fun List<ContentItemDbModel>.toContentItems(): List<ContentItem> {
     return map { contentItem ->
-        when (contentItem) {
-            is ContentItemDbModel.Image -> {
-                ContentItem.Image(url = contentItem.url)
-            }
-            is ContentItemDbModel.Text -> {
+        when (contentItem.contentType) {
+            ContentType.TEXT -> {
                 ContentItem.Text(content = contentItem.content)
+            }
+
+            ContentType.IMAGE -> {
+                ContentItem.Image(url = contentItem.content)
             }
         }
     }
