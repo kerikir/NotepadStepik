@@ -17,4 +17,7 @@
     <string name="delete_note">Удалить заметку</string>
     <string name="just_now">Только что</string>
     <string name="h_ago">%1$d ч назад</string>
+    <string name="image_from_gallery">Изображение из галереи</string>
+    <string name="remove_image">Удаление изображения</string>
+    <string name="note_something_down">Введите что-нибудь</string>
 </resources>

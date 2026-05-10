@@ -16,4 +16,7 @@
     <string name="delete_note">Delete note</string>
     <string name="just_now">Just now</string>
     <string name="h_ago">%1$d h ago</string>
+    <string name="image_from_gallery">Image from gallery</string>
+    <string name="remove_image">Remove image</string>
+    <string name="note_something_down">Note something down</string>
 </resources>
