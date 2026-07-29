@@ -61,9 +61,17 @@
 | :-----------: | :----------------: | :--------------------: |
 | ![Экран загрузки](screenshots/load_screen.png) | ![Заметки](screenshots/list_notes.png) | ![Закрепление заметки](screenshots/pin_notes.png) |
 
-| Добавление изображения | Иконка приложения | Добавление заметки |
+| Добавление изображения | Добавление заметки | Поиск заметки |
 | :-----------: | :----------------: | :--------------------: |
-| ![Добавление изображения](screenshots/add_image.png) | ![Иконка приложения](screenshots/icon_app.png) | ![Добавление заметки](screenshots/add_note.png) |
+| ![Добавление изображения](screenshots/add_image.png) | ![Добавление заметки](screenshots/add_note.png) | ![Поиск заметки](screenshots/search_notes.png) |
+
+| Группировка изображений | Редактирование заметки | Удаление изображений |
+| :-----------: | :----------------: | :--------------------: |
+| ![Группировка изображений](screenshots/group_images.png) | ![Редактирование заметки](screenshots/edit_note.png) | ![Удаление изображений](screenshots/delete_images.png) |
+
+| Иконка приложения |
+| :-----------: |
+| ![Иконка приложения](screenshots/icon_app.png) |
 
 ---
 
@@ -92,8 +100,3 @@
    - Следуйте инструкциям на экране.
 4. Запустите «Заметки» с иконки на рабочем столе.
 
----
-
-<img width="400" alt="Screenshot_20260427_161301_Notes" src="https://github.com/user-attachments/assets/b7a0b8ca-ec8b-4eba-a8c7-6bfd4a8c9139" />
-<img width="400" alt="Screenshot_20260427_161317_Notes" src="https://github.com/user-attachments/assets/afe44d9c-c72a-4036-b2d6-6c71ff2bee00" />
-<img width="400" alt="Screenshot_20260427_164256_Notes" src="https://github.com/user-attachments/assets/0aea0170-33ad-4589-b07f-5c2800f2c8d1" />
